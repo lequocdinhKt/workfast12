@@ -1,12 +1,21 @@
-// Main JavaScript file for WorkFast/Wonolo
+// Main JavaScript file for WorkFast
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('WorkFast loaded successfully');
-    
-    // Add any interactive features here
-    setupNavigation();
-    setupButtons();
+    resizeIframe();
 });
+
+function resizeIframe() {
+    var iframe = document.getElementById('homeFrame');
+    if (!iframe) return;
+    iframe.addEventListener('load', function() {
+        try {
+            var height = iframe.contentWindow.document.body.scrollHeight;
+            iframe.style.height = height + 'px';
+        } catch(e) {
+            iframe.style.height = '2000px';
+        }
+    });
+}
 
 // Setup navigation functionality
 function setupNavigation() {
