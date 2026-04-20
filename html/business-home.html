@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WorkFast – Doanh Nghiệp</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter','Segoe UI',sans-serif; background:#f7f7f3; color:#222; min-height:100vh; }
+
+        /* ══ HEADER ══════════════════════════════════ */
+        .header {
+            background:#f1c40f;
+            padding:0 32px;
+            height:62px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            position:sticky;
+            top:0;
+            z-index:200;
+            box-shadow:0 2px 8px rgba(0,0,0,0.10);
+        }
+        .header-logo {
+            font-size:22px;
+            font-weight:900;
+            color:#111;
+            letter-spacing:-0.5px;
+            text-decoration:none;
+        }
+        .header-nav { display:flex; align-items:center; gap:28px; }
+        .header-nav a {
+            font-size:14px;
+            font-weight:600;
+            color:#111;
+            text-decoration:none;
+            opacity:0.7;
+            transition:opacity 0.15s;
+        }
+        .header-nav a:hover { opacity:1; }
+
+        .header-right { display:flex; align-items:center; gap:12px; position:relative; }
+
+        /* Avatar button */
+        .avatar-btn {
+            width:38px; height:38px;
+            border-radius:50%;
+            background:#111;
+            border:2px solid #fff;
+            cursor:pointer;
+            overflow:hidden;
+            display:flex; align-items:center; justify-content:center;
+            transition:box-shadow 0.2s;
+            flex-shrink:0;
+        }
+        .avatar-btn:hover { box-shadow:0 0 0 3px rgba(0,0,0,0.2); }
+        .avatar-btn img { width:100%; height:100%; object-fit:cover; }
+        .avatar-btn svg { flex-shrink:0; }
+
+        /* Dropdown menu */
+        .user-menu {
+            position:absolute;
+            top:calc(100% + 10px);
+            right:0;
+            width:260px;
+            background:#fff;
+            border-radius:14px;
+            box-shadow:0 8px 32px rgba(0,0,0,0.15);
+            padding:8px 0;
+            display:none;
+            z-index:300;
+        }
+        .user-menu.open { display:block; }
+
+        .menu-header {
+            padding:14px 18px 10px;
+            border-bottom:1px solid #f0f0f0;
+            display:flex;
+            align-items:center;
+            gap:12px;
+        }
+        .menu-avatar {
+            width:44px; height:44px;
+            border-radius:50%;
+            background:#111;
+            overflow:hidden;
+            display:flex; align-items:center; justify-content:center;
+            flex-shrink:0;
+            cursor:pointer;
+            position:relative;
+        }
+        .menu-avatar:hover::after {
+            content:'Đổi ảnh';
+            position:absolute; inset:0;
+            background:rgba(0,0,0,0.55);
+            color:#f1c40f;
+            font-size:10px;
+            font-weight:700;
+            display:flex; align-items:center; justify-content:center;
+            border-radius:50%;
+        }
+        .menu-avatar img { width:100%; height:100%; object-fit:cover; }
+        .menu-user-info { flex:1; min-width:0; }
+        .menu-user-name { font-size:14px; font-weight:700; color:#111; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+        .menu-user-plan { font-size:11px; color:#aaa; }
+
+        .menu-item {
+            display:flex;
+            align-items:center;
+            gap:10px;
+            padding:10px 18px;
+            font-size:13px;
+            color:#333;
+            cursor:pointer;
+            transition:background 0.15s;
+            text-decoration:none;
+        }
+        .menu-item:hover { background:#fafafa; }
+        .menu-item svg { flex-shrink:0; opacity:0.6; }
+        .menu-item.danger { color:#e53e3e; }
+        .menu-divider { border:none; border-top:1px solid #f0f0f0; margin:4px 0; }
+
+        /* Avatar upload input (hidden) */
+        #avatarInput { display:none; }
+
+        /* ══ MAIN CONTENT ════════════════════════════ */
+        .page { max-width:1100px; margin:0 auto; padding:32px 24px; }
+
+        /* Welcome banner */
+        .welcome-banner {
+            background:linear-gradient(135deg,#111 0%,#2a2a2a 100%);
+            border-radius:16px;
+            padding:32px 36px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:24px;
+            margin-bottom:28px;
+            overflow:hidden;
+            position:relative;
+        }
+        .welcome-banner::before {
+            content:'';
+            position:absolute;
+            right:-40px; top:-40px;
+            width:200px; height:200px;
+            border-radius:50%;
+            background:rgba(241,196,15,0.08);
+        }
+        .welcome-banner::after {
+            content:'';
+            position:absolute;
+            right:60px; bottom:-60px;
+            width:160px; height:160px;
+            border-radius:50%;
+            background:rgba(241,196,15,0.05);
+        }
+        .welcome-text h2 { font-size:24px; font-weight:800; color:#fff; margin-bottom:6px; }
+        .welcome-text p  { font-size:14px; color:#aaa; line-height:1.6; }
+        .welcome-btn {
+            background:#f1c40f;
+            color:#111;
+            border:none;
+            border-radius:50px;
+            padding:12px 28px;
+            font-size:14px;
+            font-weight:700;
+            cursor:pointer;
+            font-family:inherit;
+            white-space:nowrap;
+            transition:background 0.2s, transform 0.15s;
+            position:relative; z-index:1;
+        }
+        .welcome-btn:hover { background:#f5d020; transform:translateY(-1px); }
+
+        /* Grid cards */
+        .cards-grid {
+            display:grid;
+            grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
+            gap:18px;
+            margin-bottom:28px;
+        }
+
+        /* Base card */
+        .card {
+            background:#fff;
+            border-radius:14px;
+            padding:24px;
+            box-shadow:0 1px 4px rgba(0,0,0,0.06);
+            border:1.5px solid #f0f0f0;
+            transition:box-shadow 0.2s, transform 0.15s;
+        }
+        .card:hover { box-shadow:0 4px 16px rgba(0,0,0,0.10); transform:translateY(-2px); }
+
+        .card-icon {
+            width:44px; height:44px;
+            border-radius:10px;
+            background:#fff8e1;
+            display:flex; align-items:center; justify-content:center;
+            margin-bottom:14px;
+        }
+        .card h3 { font-size:16px; font-weight:700; color:#111; margin-bottom:6px; }
+        .card p  { font-size:13px; color:#777; line-height:1.6; }
+        .card-action {
+            display:inline-flex;
+            align-items:center;
+            gap:6px;
+            margin-top:14px;
+            font-size:13px;
+            font-weight:600;
+            color:#b8860b;
+            cursor:pointer;
+            text-decoration:none;
+            transition:gap 0.15s;
+        }
+        .card-action:hover { gap:10px; }
+
+        /* ── Business Plus card ── */
+        .card-plus {
+            background:linear-gradient(135deg,#111 0%,#1e1e1e 100%);
+            border:1.5px solid #333;
+            position:relative;
+            overflow:hidden;
+        }
+        .card-plus::before {
+            content:'';
+            position:absolute;
+            top:-30px; right:-30px;
+            width:120px; height:120px;
+            border-radius:50%;
+            background:rgba(241,196,15,0.12);
+        }
+        .card-plus .card-icon { background:rgba(241,196,15,0.15); }
+        .card-plus h3 { color:#f1c40f; }
+        .card-plus p  { color:#888; }
+        .card-plus .plus-badge {
+            display:inline-block;
+            background:#f1c40f;
+            color:#111;
+            font-size:10px;
+            font-weight:800;
+            padding:2px 8px;
+            border-radius:20px;
+            margin-bottom:10px;
+            letter-spacing:0.5px;
+        }
+        .card-plus .card-action { color:#f1c40f; }
+        .card-plus .card-action:hover { color:#f5d020; }
+
+        .plus-features {
+            display:flex;
+            flex-direction:column;
+            gap:6px;
+            margin:12px 0 4px;
+        }
+        .plus-feat {
+            display:flex;
+            align-items:center;
+            gap:8px;
+            font-size:12px;
+            color:#aaa;
+        }
+        .plus-feat::before {
+            content:'✓';
+            width:18px; height:18px;
+            border-radius:50%;
+            background:#f1c40f;
+            color:#111;
+            font-size:11px;
+            font-weight:900;
+            display:flex; align-items:center; justify-content:center;
+            flex-shrink:0;
+        }
+
+        /* ── Stats row ── */
+        .stats-row {
+            display:grid;
+            grid-template-columns:repeat(auto-fill, minmax(180px, 1fr));
+            gap:14px;
+            margin-bottom:28px;
+        }
+        .stat-card {
+            background:#fff;
+            border-radius:12px;
+            padding:18px 20px;
+            border:1.5px solid #f0f0f0;
+        }
+        .stat-label { font-size:12px; color:#aaa; font-weight:500; margin-bottom:6px; }
+        .stat-value { font-size:26px; font-weight:800; color:#111; }
+        .stat-value span { font-size:13px; color:#f1c40f; font-weight:600; margin-left:4px; }
+
+        /* ── Profile modal ── */
+        .modal-overlay {
+            position:fixed; inset:0;
+            background:rgba(0,0,0,0.5);
+            display:none; align-items:center; justify-content:center;
+            z-index:500; padding:20px;
+        }
+        .modal-overlay.open { display:flex; }
+        .modal {
+            background:#fff;
+            border-radius:16px;
+            width:100%;
+            max-width:500px;
+            max-height:90vh;
+            overflow-y:auto;
+            padding:32px;
+            position:relative;
+        }
+        .modal-close {
+            position:absolute; top:14px; right:18px;
+            background:none; border:none;
+            font-size:22px; color:#aaa; cursor:pointer;
+            line-height:1; padding:4px 8px;
+            transition:color 0.15s;
+        }
+        .modal-close:hover { color:#333; }
+        .modal-title { font-size:18px; font-weight:800; color:#111; margin-bottom:4px; }
+        .modal-subtitle { font-size:13px; color:#aaa; margin-bottom:24px; }
+
+        /* Avatar upload area inside modal */
+        .avatar-upload-area {
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            gap:10px;
+            margin-bottom:24px;
+        }
+        .avatar-preview-big {
+            width:88px; height:88px;
+            border-radius:50%;
+            background:#111;
+            overflow:hidden;
+            display:flex; align-items:center; justify-content:center;
+            border:3px solid #f1c40f;
+            cursor:pointer;
+            position:relative;
+        }
+        .avatar-preview-big:hover::after {
+            content:'Đổi ảnh';
+            position:absolute; inset:0;
+            background:rgba(0,0,0,0.55);
+            color:#f1c40f;
+            font-size:11px;
+            font-weight:700;
+            display:flex; align-items:center; justify-content:center;
+            border-radius:50%;
+        }
+        .avatar-preview-big img { width:100%; height:100%; object-fit:cover; }
+        .avatar-hint { font-size:12px; color:#aaa; }
+
+        .field { margin-bottom:16px; }
+        .field label { display:block; font-size:13px; font-weight:600; color:#222; margin-bottom:5px; }
+        .field input, .field textarea {
+            display:block; width:100%;
+            border:1.5px solid #ddd;
+            border-radius:8px;
+            padding:10px 14px;
+            font-size:14px;
+            font-family:inherit;
+            color:#333;
+            outline:none;
+            transition:border-color 0.2s;
+            resize:vertical;
+        }
+        .field input:focus, .field textarea:focus { border-color:#f1c40f; }
+        .field textarea { min-height:80px; }
+
+        .btn-save {
+            display:block; width:100%;
+            background:#f1c40f;
+            border:none; border-radius:50px;
+            padding:13px;
+            font-size:15px; font-weight:700;
+            color:#111; cursor:pointer;
+            font-family:inherit;
+            transition:background 0.2s;
+            margin-top:8px;
+        }
+        .btn-save:hover { background:#f5d020; }
+
+        @media (max-width:640px) {
+            .welcome-banner { flex-direction:column; align-items:flex-start; }
+            .header-nav { display:none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<header class="header">
+    <a class="header-logo" href="#">WorkFast</a>
+    <nav class="header-nav">
+        <a href="#">Tổng quan</a>
+        <a href="#">Tuyển dụng</a>
+        <a href="#">Ứng viên</a>
+        <a href="#">Tin đăng</a>
+    </nav>
+    <div class="header-right">
+        <button class="avatar-btn" id="avatarBtn" title="Tài khoản">
+            <svg id="avatarIcon" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#f1c40f" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
+            </svg>
+            <img id="avatarHeaderImg" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;border-radius:50%;">
+        </button>
+
+        <!-- Dropdown -->
+        <div class="user-menu" id="userMenu">
+            <div class="menu-header">
+                <div class="menu-avatar" id="menuAvatarBtn" title="Đổi ảnh đại diện">
+                    <img id="menuAvatarImg" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;">
+                    <svg id="menuAvatarIcon" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="#f1c40f" stroke-width="1.8">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
+                    </svg>
+                </div>
+                <div class="menu-user-info">
+                    <div class="menu-user-name" id="menuUserName">Doanh Nghiệp</div>
+                    <div class="menu-user-plan">Basic</div>
+                </div>
+            </div>
+
+            <div class="menu-item" id="menuProfileBtn">
+                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                Thông tin doanh nghiệp
+            </div>
+            <div class="menu-item">
+                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 011.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.56.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.893.149c-.425.07-.765.383-.93.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 01-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.397.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 01-.12-1.45l.527-.737c.25-.35.273-.806.108-1.204-.165-.397-.505-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 01.12-1.45l.773-.773a1.125 1.125 0 011.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                Cài đặt tài khoản
+            </div>
+            <hr class="menu-divider">
+            <div class="menu-item danger" id="menuLogout">
+                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"/></svg>
+                Đăng xuất
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Hidden avatar file input -->
+<input type="file" id="avatarInput" accept="image/*">
+
+<!-- ══ MAIN ══ -->
+<main class="page">
+
+    <!-- Welcome banner -->
+    <div class="welcome-banner">
+        <div class="welcome-text">
+            <h2 id="welcomeTitle">Chào mừng, Doanh Nghiệp!</h2>
+            <p>Bắt đầu đăng tin tuyển dụng và kết nối với hàng nghìn<br>lao động phù hợp trong khu vực của bạn.</p>
+        </div>
+        <button class="welcome-btn">+ Đăng tin tuyển dụng</button>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row">
+        <div class="stat-card">
+            <div class="stat-label">Tin đang hoạt động</div>
+            <div class="stat-value">0 <span>+0%</span></div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Lượt ứng tuyển</div>
+            <div class="stat-value">0 <span>tuần này</span></div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Lao động đã tuyển</div>
+            <div class="stat-value">0</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Đánh giá trung bình</div>
+            <div class="stat-value">—</div>
+        </div>
+    </div>
+
+    <!-- Cards grid -->
+    <div class="cards-grid">
+
+        <!-- Business Plus card -->
+        <div class="card card-plus">
+            <div class="plus-badge">MỚI</div>
+            <div class="card-icon">
+                <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="#f1c40f" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z"/>
+                </svg>
+            </div>
+            <h3>Business Plus →</h3>
+            <p>Nâng cấp để tiếp cận lao động hàng đầu nhanh hơn. Không tốn phí trước.</p>
+            <div class="plus-features">
+                <div class="plus-feat">Ưu tiên hiển thị tin tuyển dụng</div>
+                <div class="plus-feat">Xem hồ sơ không giới hạn</div>
+                <div class="plus-feat">Huy hiệu doanh nghiệp xác thực</div>
+                <div class="plus-feat">Hỗ trợ ưu tiên 24/7</div>
+            </div>
+            <a href="#" class="card-action">Dùng thử miễn phí →</a>
+        </div>
+
+        <!-- Post job card -->
+        <div class="card">
+            <div class="card-icon">
+                <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="#b8860b" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+            </div>
+            <h3>Đăng tin tuyển dụng</h3>
+            <p>Tạo tin tuyển dụng chi tiết, tiếp cận hàng nghìn lao động phù hợp trong khu vực.</p>
+            <a href="#" class="card-action">Tạo ngay →</a>
+        </div>
+
+        <!-- Browse workers card -->
+        <div class="card">
+            <div class="card-icon">
+                <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="#b8860b" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/>
+                </svg>
+            </div>
+            <h3>Tìm lao động phù hợp</h3>
+            <p>Duyệt hồ sơ lao động đã xác minh, lọc theo kỹ năng và khu vực làm việc.</p>
+            <a href="#" class="card-action">Tìm kiếm →</a>
+        </div>
+
+        <!-- Analytics card -->
+        <div class="card">
+            <div class="card-icon">
+                <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="#b8860b" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/>
+                </svg>
+            </div>
+            <h3>Thống kê tuyển dụng</h3>
+            <p>Theo dõi hiệu suất tin đăng, lượt xem, lượt ứng tuyển theo thời gian thực.</p>
+            <a href="#" class="card-action">Xem báo cáo →</a>
+        </div>
+
+    </div>
+
+</main>
+
+<!-- ══ PROFILE MODAL ══ -->
+<div class="modal-overlay" id="profileOverlay">
+    <div class="modal">
+        <button class="modal-close" id="profileClose">&times;</button>
+        <div class="modal-title">Thông tin doanh nghiệp</div>
+        <div class="modal-subtitle">Cập nhật hồ sơ và ảnh đại diện doanh nghiệp</div>
+
+        <div class="avatar-upload-area">
+            <div class="avatar-preview-big" id="avatarModalBtn" title="Đổi ảnh đại diện">
+                <img id="avatarModalImg" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;">
+                <svg id="avatarModalIcon" width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="#f1c40f" stroke-width="1.6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
+                </svg>
+            </div>
+            <span class="avatar-hint">Nhấn vào ảnh để thay đổi • JPG, PNG tối đa 2MB</span>
+        </div>
+
+        <form id="profileForm">
+            <div class="field">
+                <label>Tên doanh nghiệp</label>
+                <input type="text" id="profileName" placeholder="Tên công ty của bạn">
+            </div>
+            <div class="field">
+                <label>Email liên hệ</label>
+                <input type="email" id="profileEmail" placeholder="email@company.com" readonly style="background:#fafafa;cursor:not-allowed;">
+            </div>
+            <div class="field">
+                <label>Số điện thoại</label>
+                <input type="tel" id="profilePhone" placeholder="0912 345 678">
+            </div>
+            <div class="field">
+                <label>Địa chỉ doanh nghiệp</label>
+                <input type="text" id="profileAddress" placeholder="123 Đường ABC, Quận XYZ, TP...">
+            </div>
+            <div class="field">
+                <label>Mô tả doanh nghiệp</label>
+                <textarea id="profileDesc" placeholder="Giới thiệu ngắn về doanh nghiệp của bạn..."></textarea>
+            </div>
+            <button type="submit" class="btn-save">Lưu thông tin</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // ── Auth guard ─────────────────────────────────
+    var user = null;
+    try { user = JSON.parse(localStorage.getItem('wf_user') || 'null'); } catch(e){}
+    if (!user || user.type !== 'business') {
+        window.location.href = '../index.html';
+    }
+
+    // ── Avatar state (stored in localStorage) ─────
+    var avatarDataUrl = localStorage.getItem('wf_biz_avatar') || '';
+
+    function applyAvatar(src) {
+        // Header button
+        var headerImg  = document.getElementById('avatarHeaderImg');
+        var headerIcon = document.getElementById('avatarIcon');
+        // Menu
+        var menuImg  = document.getElementById('menuAvatarImg');
+        var menuIcon = document.getElementById('menuAvatarIcon');
+        // Modal
+        var modalImg  = document.getElementById('avatarModalImg');
+        var modalIcon = document.getElementById('avatarModalIcon');
+
+        if (src) {
+            headerImg.src = menuImg.src = modalImg.src = src;
+            headerImg.style.display = menuImg.style.display = modalImg.style.display = 'block';
+            headerIcon.style.display = menuIcon.style.display = modalIcon.style.display = 'none';
+        } else {
+            headerImg.style.display = menuImg.style.display = modalImg.style.display = 'none';
+            headerIcon.style.display = menuIcon.style.display = modalIcon.style.display = '';
+        }
+    }
+
+    if (avatarDataUrl) applyAvatar(avatarDataUrl);
+
+    // ── User info ──────────────────────────────────
+    var profile = JSON.parse(localStorage.getItem('wf_biz_profile') || '{}');
+    var displayName = profile.name || user.email || 'Doanh Nghiệp';
+    document.getElementById('menuUserName').textContent  = displayName;
+    document.getElementById('welcomeTitle').textContent  = 'Chào mừng, ' + displayName + '!';
+
+    // ── Avatar file input ──────────────────────────
+    var avatarInput = document.getElementById('avatarInput');
+    function triggerAvatarPick() { avatarInput.click(); }
+
+    ['avatarBtn','menuAvatarBtn','avatarModalBtn'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) el.addEventListener('click', function(e) {
+            e.stopPropagation();
+            triggerAvatarPick();
+        });
+    });
+
+    avatarInput.addEventListener('change', function() {
+        var file = this.files[0];
+        if (!file) return;
+        if (file.size > 2 * 1024 * 1024) { alert('Ảnh quá lớn, vui lòng chọn ảnh dưới 2MB.'); return; }
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            avatarDataUrl = e.target.result;
+            localStorage.setItem('wf_biz_avatar', avatarDataUrl);
+            applyAvatar(avatarDataUrl);
+        };
+        reader.readAsDataURL(file);
+    });
+
+    // ── Dropdown menu ──────────────────────────────
+    var userMenu = document.getElementById('userMenu');
+    document.getElementById('avatarBtn').addEventListener('click', function(e) {
+        e.stopPropagation();
+        userMenu.classList.toggle('open');
+    });
+    document.addEventListener('click', function() { userMenu.classList.remove('open'); });
+    userMenu.addEventListener('click', function(e) { e.stopPropagation(); });
+
+    // ── Logout ─────────────────────────────────────
+    document.getElementById('menuLogout').addEventListener('click', function() {
+        localStorage.removeItem('wf_user');
+        window.location.href = '../index.html';
+    });
+
+    // ── Profile modal ──────────────────────────────
+    var profileOverlay = document.getElementById('profileOverlay');
+
+    document.getElementById('menuProfileBtn').addEventListener('click', function() {
+        userMenu.classList.remove('open');
+        // Fill form with saved profile
+        document.getElementById('profileEmail').value   = user.email || '';
+        document.getElementById('profilePhone').value   = profile.phone || user.phone || '';
+        document.getElementById('profileName').value    = profile.name || '';
+        document.getElementById('profileAddress').value = profile.address || '';
+        document.getElementById('profileDesc').value    = profile.desc || '';
+        profileOverlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    });
+
+    document.getElementById('profileClose').addEventListener('click', closeProfile);
+    profileOverlay.addEventListener('click', function(e) { if (e.target === profileOverlay) closeProfile(); });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeProfile(); });
+    function closeProfile() {
+        profileOverlay.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    document.getElementById('profileForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        profile.name    = document.getElementById('profileName').value.trim();
+        profile.phone   = document.getElementById('profilePhone').value.trim();
+        profile.address = document.getElementById('profileAddress').value.trim();
+        profile.desc    = document.getElementById('profileDesc').value.trim();
+        localStorage.setItem('wf_biz_profile', JSON.stringify(profile));
+
+        // Update display name
+        var n = profile.name || user.email;
+        document.getElementById('menuUserName').textContent = n;
+        document.getElementById('welcomeTitle').textContent = 'Chào mừng, ' + n + '!';
+
+        closeProfile();
+        alert('Đã lưu thông tin doanh nghiệp!');
+    });
+</script>
+</body>
+</html>

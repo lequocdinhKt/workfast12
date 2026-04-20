@@ -20,8 +20,8 @@
                         <h3>Doanh nghiệp và nguồn lực nhân sự trình độ cao</h3>
                         <p>WorkFast kết hợp chuyên môn con người với công nghệ tiên tiến để cung cấp giải pháp nhân sự linh hoạt, hướng tới khách hàng. Cho dù nhu cầu dài hạn hay theo yêu cầu, WorkFast cung cấp một giải pháp liên mạch, có khả năng mở rộng được thiết kế để giải quyết những thách thức lao động phức tạp nhất của bạn.</p>
                         <div class="hero-buttons">
-                            <a href="#" class="btn btn-dark">Tôi là Doanh Nghiệp</a>
-                            <a href="#" class="btn btn-light">Tôi là Lao Động</a>
+                            <a href="#" class="btn btn-dark" id="btnBusiness">Tôi là Doanh Nghiệp</a>
+                            <a href="#" class="btn btn-light" id="btnWorker">Tôi là Lao Động</a>
                         </div>
                     </div>
                     <div class="hero-image">
@@ -114,5 +114,15 @@
             </div>
         </div>
     </section>
+    <script>
+        document.getElementById('btnBusiness').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.parent.postMessage({ type: 'openRegistration' }, '*');
+        });
+        document.getElementById('btnWorker').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.parent.postMessage({ type: 'openWorkerRegistration' }, '*');
+        });
+    </script>
 </body>
 </html>

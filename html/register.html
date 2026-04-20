@@ -1,0 +1,104 @@
+<div id="registrationOverlay" class="reg-overlay" aria-modal="true" role="dialog" aria-labelledby="regModalTitle">
+
+	<div class="reg-modal">
+
+		<!-- Close button -->
+		<button class="reg-close" id="regCloseBtn" aria-label="Đóng">&times;</button>
+
+		<!-- LEFT: Form -->
+		<div class="reg-left">
+			<h2 class="reg-title" id="regModalTitle">
+				Tùy chỉnh giải pháp nhân sự<br>Workfast cho nhu cầu của bạn
+			</h2>
+			<p class="reg-subtitle">
+				Chia sẻ một vài thông tin về nhu cầu doanh nghiệp của bạn<br>
+				để chúng tôi kết nối bạn với đội ngũ phù hợp.
+			</p>
+
+			<form id="registrationForm" novalidate>
+
+				<div class="reg-field">
+					<label for="regEmail">Địa chỉ Gmail</label>
+					<input type="email" id="regEmail" name="email" placeholder="email@company.com" required>
+				</div>
+
+				<div class="reg-field">
+					<label for="regPhone">Số điện thoại</label>
+					<input type="tel" id="regPhone" name="phone" placeholder="0912 345 678" required>
+				</div>
+
+				<div class="reg-field">
+					<label for="regPassword">Mật khẩu</label>
+					<input type="password" id="regPassword" name="password" placeholder="Nhập mật khẩu" required>
+				</div>
+
+				<div class="reg-field">
+					<label for="regConfirmPassword">Xác nhận mật khẩu</label>
+					<input type="password" id="regConfirmPassword" name="confirmPassword" placeholder="Nhập lại mật khẩu" required>
+				</div>
+
+				<div class="reg-field">
+					<label for="regIdNumber">Số CCCD</label>
+					<input type="text" id="regIdNumber" name="idNumber" placeholder="Nhập số CCCD" required>
+				</div>
+
+				<!-- ID Photo Upload -->
+				<div class="reg-field">
+					<label>Ảnh CCCD</label>
+					<div class="reg-id-upload">
+
+						<label class="reg-id-box" for="regIdFront">
+							<div class="reg-id-preview" id="regIdFrontPreview">
+								<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none"
+									viewBox="0 0 24 24" stroke="#aaa" stroke-width="1.5">
+									<path stroke-linecap="round" stroke-linejoin="round"
+										d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
+									<path stroke-linecap="round" stroke-linejoin="round"
+										d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z" />
+								</svg>
+								<span>Mặt trước</span>
+							</div>
+							<input type="file" id="regIdFront" name="idFront" accept="image/*" class="reg-sr-only">
+						</label>
+
+						<label class="reg-id-box" for="regIdBack">
+							<div class="reg-id-preview" id="regIdBackPreview">
+								<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none"
+									viewBox="0 0 24 24" stroke="#aaa" stroke-width="1.5">
+									<path stroke-linecap="round" stroke-linejoin="round"
+										d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
+									<path stroke-linecap="round" stroke-linejoin="round"
+										d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z" />
+								</svg>
+								<span>Mặt sau</span>
+							</div>
+							<input type="file" id="regIdBack" name="idBack" accept="image/*" class="reg-sr-only">
+						</label>
+
+					</div>
+				</div>
+
+				<button type="submit" class="reg-submit">Xác nhận</button>
+			</form>
+
+			<p class="reg-privacy"><a href="#">Chính sách bảo mật</a></p>
+		</div>
+
+		<!-- RIGHT: Branding -->
+		<div class="reg-right">
+			<div class="reg-brand-circle">
+				<span>WORKFAST</span>
+			</div>
+			<div class="reg-brand-text">
+				<h3>Nhanh chóng - Bảo mật<br>- Hiệu quả</h3>
+				<p>
+					Đăng ký và xác thực thông tin chỉ trong 1 phút.<br>
+					Bảo mật tuyệt đối, hỗ trợ 24/7.<br>
+					Workfast đồng hành cùng doanh nghiệp Việt!
+				</p>
+			</div>
+		</div>
+
+	</div>
+</div>
+

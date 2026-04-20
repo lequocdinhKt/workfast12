@@ -1,0 +1,344 @@
+/* =============================================
+   register.css — Registration Modal
+   ============================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+
+/* ── Overlay ── */
+.reg-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0,0,0,0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* ── Modal container ── */
+.reg-modal {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    width: 860px;
+    max-width: calc(100vw - 40px);
+    max-height: 90vh;
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+/* ── Close button ── */
+.reg-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    z-index: 10;
+    background: none;
+    border: none;
+    font-size: 24px;
+    line-height: 1;
+    color: #999;
+    cursor: pointer;
+    padding: 4px 8px;
+    transition: color 0.15s;
+}
+.reg-close:hover { color: #333; }
+
+/* ══════════════════════════════
+   LEFT — scrollable form panel
+   ══════════════════════════════ */
+.reg-left {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 40px 36px 32px;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.reg-title {
+    font-size: 19px;
+    font-weight: 800;
+    color: #111;
+    line-height: 1.4;
+    margin: 0 0 8px;
+}
+
+.reg-subtitle {
+    font-size: 13px;
+    color: #888;
+    line-height: 1.6;
+    margin: 0 0 24px;
+}
+
+.reg-field {
+    margin-bottom: 14px;
+}
+
+.reg-field > label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 5px;
+}
+
+.reg-field input[type="email"],
+.reg-field input[type="tel"],
+.reg-field input[type="password"],
+.reg-field input[type="text"] {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 14px;
+    color: #333;
+    background: #fff;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.reg-field input:focus {
+    border-color: #f1c40f;
+    box-shadow: 0 0 0 3px rgba(241,196,15,0.2);
+}
+
+.reg-field input::placeholder { color: #bbb; }
+
+.reg-id-upload {
+    display: flex;
+    gap: 12px;
+}
+
+.reg-id-box {
+    flex: 1;
+    height: 90px;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: #fafafa;
+    overflow: hidden;
+    position: relative;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.reg-id-box:hover {
+    border-color: #f1c40f;
+    background: #fffbea;
+}
+
+.reg-id-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    pointer-events: none;
+}
+
+.reg-id-icon span {
+    font-size: 12px;
+    color: #aaa;
+}
+
+.reg-id-box img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.reg-sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    overflow: hidden; clip: rect(0,0,0,0);
+    white-space: nowrap; border: 0;
+    margin: -1px; padding: 0;
+}
+
+.reg-submit {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    padding: 13px;
+    background: #f1c40f;
+    border: none;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #111;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.2s, transform 0.15s;
+}
+
+.reg-submit:hover {
+    background: #f5d020;
+    transform: translateY(-1px);
+}
+
+.reg-privacy {
+    margin-top: 12px;
+    font-size: 12px;
+}
+
+.reg-privacy a {
+    color: #f1c40f;
+    text-decoration: underline;
+}
+
+/* ══════════════════════════════
+   RIGHT — branding panel
+   ══════════════════════════════ */
+.reg-right {
+    flex: 0 0 320px;
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    padding: 48px 28px;
+    background: #fff;
+    border-left: 1px solid #ececec;
+    box-sizing: border-box;
+}
+
+.reg-brand-circle {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: #f1c40f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.reg-brand-circle span {
+    font-size: 32px;
+    font-weight: 900;
+    color: #111;
+    letter-spacing: -0.5px;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    text-align: center;
+}
+
+.reg-brand-text {
+    text-align: center;
+}
+
+.reg-brand-text h3 {
+    font-size: 18px;
+    font-weight: 800;
+    color: #f1c40f;
+    line-height: 1.35;
+    margin: 0 0 10px;
+}
+
+.reg-brand-text p {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.7;
+    margin: 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 680px) {
+    .reg-modal {
+        flex-direction: column;
+        max-height: 95vh;
+        width: 100%;
+    }
+
+    .reg-right {
+        flex: 0 0 auto;
+        width: 100%;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
+        padding: 16px 20px;
+        border-left: none;
+        border-top: 1px solid #ececec;
+    }
+
+    .reg-brand-circle {
+        width: 72px;
+        height: 72px;
+        flex-shrink: 0;
+    }
+
+    .reg-brand-circle span { font-size: 8px; }
+    .reg-brand-text { text-align: left; }
+    .reg-brand-text h3 { font-size: 13px; }
+    .reg-brand-text p  { font-size: 11px; }
+}
+
+/* ══════════════════════════════
+   Worker modal — accent color
+   ══════════════════════════════ */
+.reg-brand-circle--worker {
+    background: #1a1a1a;
+}
+
+.reg-brand-circle--worker span {
+    color: #f1c40f;
+}
+
+.reg-right--worker .reg-brand-text h3 {
+    color: #1a1a1a;
+}
+
+#workerOverlay .reg-submit {
+    background: #1a1a1a;
+    color: #f1c40f;
+}
+
+#workerOverlay .reg-submit:hover {
+    background: #333;
+}
+
+#workerOverlay .reg-field input:focus {
+    border-color: #1a1a1a;
+    box-shadow: 0 0 0 3px rgba(26,26,26,0.12);
+}
+
+/* ══════════════════════════════
+   Login modal overrides
+   ══════════════════════════════ */
+.login-modal {
+    width: 760px;
+    max-width: calc(100vw - 40px);
+}
+
+.login-forgot {
+    text-align: right;
+    margin: -6px 0 4px;
+}
+
+.login-forgot a {
+    font-size: 12px;
+    color: #888;
+    text-decoration: none;
+    transition: color 0.15s;
+}
+
+.login-forgot a:hover {
+    color: #f1c40f;
+    text-decoration: underline;
+}
+
+.reg-privacy a {
+    font-weight: 600;
+}

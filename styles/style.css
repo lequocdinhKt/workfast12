@@ -352,6 +352,24 @@ main {
     color: var(--primary-yellow);
 }
 
+.btn-register {
+    background-color: #111;
+    color: #fff;
+    padding: 11px 24px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.btn-register:hover {
+    background-color: #f1c40f;
+    color: #111;
+    transform: translateY(-1px);
+}
+
 .btn-booking {
     background-color: var(--primary-yellow);
     color: var(--text-dark);
