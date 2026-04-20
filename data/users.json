@@ -1,21 +1,2 @@
 [
-  {
-    "id": 1776647835289,
-    "type": "worker",
-    "fullName": "nguyeen van a",
-    "email": "nguyenvana@gmail.com",
-    "phone": "0912345678",
-    "password": "123456",
-    "idNumber": "123456789",
-    "createdAt": "2026-04-20T01:17:15.289Z"
-  },
-  {
-    "id": 1776649280827,
-    "type": "business",
-    "email": "company@gmail.com",
-    "phone": "012345678",
-    "password": "123456",
-    "idNumber": "123456789",
-    "createdAt": "2026-04-20T01:41:20.828Z"
-  }
 ]

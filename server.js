@@ -44,7 +44,7 @@ app.post('/api/register', (req, res) => {
         type: 'business',
         email,
         phone: phone || '',
-        password,          // plain-text for demo; use bcrypt in production
+        password,          // plain-text; use bcrypt in production
         idNumber: idNumber || '',
         createdAt: new Date().toISOString()
     };
@@ -97,7 +97,7 @@ app.post('/api/login', (req, res) => {
     res.json({ ok: true, message: 'Đăng nhập thành công!', user: safeUser });
 });
 
-// ── GET /api/users  (danh sách, chỉ dùng cho demo) ─
+// ── GET /api/users  (danh sách, chỉ dùng nội bộ) ─
 app.get('/api/users', (req, res) => {
     const users = readUsers().map(({ password: _, ...u }) => u);
     res.json(users);

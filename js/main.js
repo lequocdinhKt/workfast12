@@ -4,8 +4,58 @@
 // currentUser.type === 'business' | 'worker' | null (chưa đăng nhập)
 var currentUser = JSON.parse(localStorage.getItem('wf_user') || 'null');
 
+(function initWorkFastAlert() {
+    if (window.__wfAlertReady) return;
+    window.__wfAlertReady = true;
+
+    var style = document.createElement('style');
+    style.textContent = [
+        '.wf-alert-overlay{position:fixed;inset:0;background:rgba(15,15,15,0.45);display:none;align-items:center;justify-content:center;z-index:9999;padding:20px;}',
+        '.wf-alert-overlay.open{display:flex;}',
+        '.wf-alert-box{width:min(92vw,440px);background:linear-gradient(165deg,#fffdf2,#fff7cf);border:2px solid #f1c40f;border-radius:16px;box-shadow:0 20px 48px rgba(0,0,0,0.26);padding:18px 18px 14px;color:#2d2d2d;}',
+        '.wf-alert-title{font-size:15px;font-weight:800;color:#111;margin-bottom:8px;}',
+        '.wf-alert-message{font-size:14px;line-height:1.55;white-space:pre-line;color:#333;}',
+        '.wf-alert-actions{display:flex;justify-content:flex-end;margin-top:14px;}',
+        '.wf-alert-btn{border:none;border-radius:999px;background:#f1c40f;color:#111;font-size:13px;font-weight:800;padding:8px 16px;cursor:pointer;font-family:inherit;}'
+    ].join('');
+    document.head.appendChild(style);
+
+    var overlay = document.createElement('div');
+    overlay.className = 'wf-alert-overlay';
+    overlay.innerHTML =
+        '<div class="wf-alert-box" role="alertdialog" aria-modal="true" aria-live="assertive">' +
+            '<div class="wf-alert-title">Thông báo</div>' +
+            '<div class="wf-alert-message" id="wfAlertMessage"></div>' +
+            '<div class="wf-alert-actions"><button class="wf-alert-btn" id="wfAlertOkBtn">OK</button></div>' +
+        '</div>';
+    document.body.appendChild(overlay);
+
+    var msg = overlay.querySelector('#wfAlertMessage');
+    var okBtn = overlay.querySelector('#wfAlertOkBtn');
+
+    function closeAlert() {
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    okBtn.addEventListener('click', closeAlert);
+    overlay.addEventListener('click', function (e) {
+        if (e.target === overlay) closeAlert();
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && overlay.classList.contains('open')) closeAlert();
+    });
+
+    window.alert = function (message) {
+        msg.textContent = String(message == null ? '' : message);
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        okBtn.focus();
+    };
+})();
+
 function getApiBaseUrl() {
-    // Allow quick override for demo: localStorage.setItem('wf_api_base', 'https://your-api-domain.com')
+    // Allow quick override: localStorage.setItem('wf_api_base', 'https://your-api-domain.com')
     var override = localStorage.getItem('wf_api_base');
     if (override) return override.replace(/\/$/, '');
 
@@ -15,16 +65,34 @@ function getApiBaseUrl() {
 
 var API_BASE_URL = getApiBaseUrl();
 
-function readDemoUsers() {
+var STATIC_LOGIN_USERS = [
+    {
+        id: 1001,
+        type: 'worker',
+        fullName: 'Nguyễn Văn A',
+        email: 'worker@gmail.com',
+        phone: '0912345678',
+        password: '123456'
+    },
+    {
+        id: 1002,
+        type: 'business',
+        email: 'business@gmail.com',
+        phone: '0123456789',
+        password: '123456'
+    }
+];
+
+function readLocalUsers() {
     try {
-        return JSON.parse(localStorage.getItem('wf_demo_users') || '[]');
+        return JSON.parse(localStorage.getItem('wf_local_users') || '[]');
     } catch (e) {
         return [];
     }
 }
 
-function writeDemoUsers(users) {
-    localStorage.setItem('wf_demo_users', JSON.stringify(users));
+function writeLocalUsers(users) {
+    localStorage.setItem('wf_local_users', JSON.stringify(users));
 }
 
 function safeUser(user) {
@@ -35,8 +103,24 @@ function safeUser(user) {
     return clone;
 }
 
-function handleDemoAuth(endpoint, data) {
-    var users = readDemoUsers();
+function loginWithStaticUsers(data) {
+    var found = STATIC_LOGIN_USERS.find(function (u) {
+        return u.email === (data.email || '').trim() && u.password === data.password;
+    });
+
+    if (!found) {
+        return { ok: false, message: 'Sai tài khoản hoặc mật khẩu. Dùng worker@gmail.com / business@gmail.com với mật khẩu 123456.' };
+    }
+
+    return {
+        ok: true,
+        message: 'Đăng nhập thành công!',
+        user: safeUser(found)
+    };
+}
+
+function handleLocalAuth(endpoint, data) {
+    var users = readLocalUsers();
 
     if (endpoint === '/api/login') {
         var found = users.find(function (u) {
@@ -49,7 +133,7 @@ function handleDemoAuth(endpoint, data) {
 
         return {
             ok: true,
-            message: 'Đăng nhập thành công! (Demo offline)',
+            message: 'Đăng nhập thành công! (Offline)',
             user: safeUser(found)
         };
     }
@@ -76,18 +160,22 @@ function handleDemoAuth(endpoint, data) {
         };
 
         users.push(newUser);
-        writeDemoUsers(users);
+        writeLocalUsers(users);
 
         return {
             ok: true,
-            message: type === 'worker' ? 'Đăng ký lao động thành công! (Demo offline)' : 'Đăng ký doanh nghiệp thành công! (Demo offline)'
+            message: type === 'worker' ? 'Đăng ký lao động thành công! (Offline)' : 'Đăng ký doanh nghiệp thành công! (Offline)'
         };
     }
 
-    return { ok: false, message: 'Không hỗ trợ endpoint demo này.' };
+    return { ok: false, message: 'Không hỗ trợ endpoint này.' };
 }
 
 function submitAuthRequest(endpoint, data) {
+    if (endpoint === '/api/login') {
+        return Promise.resolve(loginWithStaticUsers(data));
+    }
+
     return fetch(API_BASE_URL + endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -99,7 +187,7 @@ function submitAuthRequest(endpoint, data) {
         });
     })
     .catch(function () {
-        return handleDemoAuth(endpoint, data);
+        return handleLocalAuth(endpoint, data);
     });
 }
 

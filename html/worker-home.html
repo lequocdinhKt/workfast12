@@ -43,6 +43,20 @@
             font-size: 13px;
         }
         .topbar-user strong { color: #f1c40f; }
+        .user-name-btn {
+            border: none;
+            background: transparent;
+            color: inherit;
+            padding: 0;
+            font: inherit;
+            cursor: pointer;
+        }
+        .user-name-btn strong {
+            color: #f1c40f;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+        .user-name-btn:hover strong { color: #f8d95f; }
         .btn-logout {
             background: transparent;
             border: 1px solid #555;
@@ -301,6 +315,143 @@
         }
         .btn-apply:hover { background: #f5d020; transform: translateY(-1px); }
 
+        /* ── Worker profile modal ── */
+        .profile-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.52);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 900;
+            padding: 20px;
+        }
+        .profile-overlay.open { display: flex; }
+
+        .profile-modal {
+            width: min(94vw, 520px);
+            background: #fff;
+            border: 2px solid #f1c40f;
+            border-radius: 16px;
+            box-shadow: 0 24px 60px rgba(0,0,0,0.24);
+            padding: 20px 18px 16px;
+            position: relative;
+        }
+        .profile-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 32px;
+            height: 32px;
+            border: none;
+            border-radius: 50%;
+            background: #111;
+            color: #f1c40f;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .profile-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #111;
+            margin-bottom: 4px;
+        }
+        .profile-sub {
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 14px;
+        }
+
+        .profile-avatar-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+        .profile-avatar-btn {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 2px solid #f1c40f;
+            background: #111;
+            color: #f1c40f;
+            font-weight: 700;
+            font-size: 11px;
+            cursor: pointer;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6px;
+        }
+        .profile-avatar-btn img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .profile-avatar-hint {
+            font-size: 12px;
+            color: #777;
+            line-height: 1.4;
+        }
+
+        .profile-form .field {
+            margin-bottom: 10px;
+        }
+        .profile-form label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: #444;
+            margin-bottom: 4px;
+        }
+        .profile-form input,
+        .profile-form textarea {
+            width: 100%;
+            border: 1.5px solid #ddd;
+            border-radius: 8px;
+            padding: 9px 11px;
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+        }
+        .profile-form textarea {
+            min-height: 70px;
+            resize: vertical;
+        }
+        .profile-form input:focus,
+        .profile-form textarea:focus {
+            border-color: #f1c40f;
+        }
+        .profile-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .profile-btn-cancel,
+        .profile-btn-save {
+            border: none;
+            border-radius: 999px;
+            padding: 9px 14px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .profile-btn-cancel {
+            border: 1px solid #d0d0d0;
+            background: #fff;
+            color: #555;
+        }
+        .profile-btn-save {
+            background: #f1c40f;
+            color: #111;
+        }
+        .profile-btn-save:hover { background: #f5d020; }
+        #workerAvatarInput { display: none; }
+
         /* ── Responsive ── */
         @media (max-width: 700px) {
             .main-layout { flex-direction: column; height: auto; overflow: visible; }
@@ -315,8 +466,53 @@
 <div class="topbar">
     <div class="topbar-logo">WorkFast</div>
     <div class="topbar-user">
-        Xin chào, <strong id="userGreet">Bạn</strong>
+        Xin chào,
+        <button class="user-name-btn" id="userProfileTrigger" type="button">
+            <strong id="userGreet">Bạn</strong>
+        </button>
         <button class="btn-logout" id="btnLogout">Đăng xuất</button>
+    </div>
+</div>
+
+<div class="profile-overlay" id="workerProfileOverlay">
+    <div class="profile-modal">
+        <button class="profile-close" id="workerProfileClose" type="button">&times;</button>
+        <div class="profile-title">Thông tin cá nhân</div>
+        <div class="profile-sub">Chỉnh nhanh hồ sơ để nhà tuyển dụng dễ liên hệ hơn.</div>
+
+        <div class="profile-avatar-wrap">
+            <button class="profile-avatar-btn" id="workerAvatarBtn" type="button">Đổi ảnh</button>
+            <div class="profile-avatar-hint">Nhấn vào avatar để thay đổi ảnh đại diện.<br>Chỉ dùng giao diện demo.</div>
+        </div>
+
+        <input type="file" id="workerAvatarInput" accept="image/*">
+
+        <form class="profile-form" id="workerProfileForm">
+            <div class="field">
+                <label for="workerFullName">Họ và tên</label>
+                <input type="text" id="workerFullName" placeholder="Nguyễn Văn A">
+            </div>
+            <div class="field">
+                <label for="workerEmail">Email</label>
+                <input type="email" id="workerEmail" readonly>
+            </div>
+            <div class="field">
+                <label for="workerPhone">Số điện thoại</label>
+                <input type="tel" id="workerPhone" placeholder="0912 345 678">
+            </div>
+            <div class="field">
+                <label for="workerCity">Khu vực mong muốn</label>
+                <input type="text" id="workerCity" placeholder="Đà Nẵng">
+            </div>
+            <div class="field">
+                <label for="workerSkills">Kỹ năng chính</label>
+                <textarea id="workerSkills" placeholder="VD: phục vụ, bán hàng, giao tiếp khách hàng..."></textarea>
+            </div>
+            <div class="profile-actions">
+                <button class="profile-btn-cancel" id="workerProfileCancel" type="button">Hủy</button>
+                <button class="profile-btn-save" type="submit">Lưu thông tin</button>
+            </div>
+        </form>
     </div>
 </div>
 
@@ -370,17 +566,147 @@
 </div>
 
 <script>
+    (function initWorkFastAlert() {
+        if (window.__wfAlertReady) return;
+        window.__wfAlertReady = true;
+
+        var style = document.createElement('style');
+        style.textContent = [
+            '.wf-alert-overlay{position:fixed;inset:0;background:rgba(15,15,15,0.45);display:none;align-items:center;justify-content:center;z-index:1100;padding:20px;}',
+            '.wf-alert-overlay.open{display:flex;}',
+            '.wf-alert-box{width:min(92vw,440px);background:linear-gradient(165deg,#fffdf2,#fff7cf);border:2px solid #f1c40f;border-radius:16px;box-shadow:0 20px 48px rgba(0,0,0,0.26);padding:18px 18px 14px;color:#2d2d2d;}',
+            '.wf-alert-title{font-size:15px;font-weight:800;color:#111;margin-bottom:8px;}',
+            '.wf-alert-message{font-size:14px;line-height:1.55;white-space:pre-line;color:#333;}',
+            '.wf-alert-actions{display:flex;justify-content:flex-end;margin-top:14px;}',
+            '.wf-alert-btn{border:none;border-radius:999px;background:#f1c40f;color:#111;font-size:13px;font-weight:800;padding:8px 16px;cursor:pointer;font-family:inherit;}'
+        ].join('');
+        document.head.appendChild(style);
+
+        var overlay = document.createElement('div');
+        overlay.className = 'wf-alert-overlay';
+        overlay.innerHTML =
+            '<div class="wf-alert-box" role="alertdialog" aria-modal="true" aria-live="assertive">' +
+                '<div class="wf-alert-title">Thông báo</div>' +
+                '<div class="wf-alert-message" id="wfAlertMessage"></div>' +
+                '<div class="wf-alert-actions"><button class="wf-alert-btn" id="wfAlertOkBtn">OK</button></div>' +
+            '</div>';
+        document.body.appendChild(overlay);
+
+        var msg = overlay.querySelector('#wfAlertMessage');
+        var okBtn = overlay.querySelector('#wfAlertOkBtn');
+
+        function closeAlert() {
+            overlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        okBtn.addEventListener('click', closeAlert);
+        overlay.addEventListener('click', function (e) {
+            if (e.target === overlay) closeAlert();
+        });
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && overlay.classList.contains('open')) closeAlert();
+        });
+
+        window.alert = function (message) {
+            msg.textContent = String(message == null ? '' : message);
+            overlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            okBtn.focus();
+        };
+    })();
+
     // ── User greeting ──────────────────────────────
     var user = null;
     try { user = JSON.parse(localStorage.getItem('wf_user') || 'null'); } catch(e){}
     if (!user || user.type !== 'worker') {
         window.location.href = '../index.html';
     }
-    if (user && user.fullName) {
-        document.getElementById('userGreet').textContent = user.fullName;
-    } else if (user && user.email) {
-        document.getElementById('userGreet').textContent = user.email;
+
+    var workerProfile = {};
+    var workerAvatar = '';
+    try { workerProfile = JSON.parse(localStorage.getItem('wf_worker_profile') || '{}'); } catch (e) { workerProfile = {}; }
+    workerAvatar = localStorage.getItem('wf_worker_avatar') || '';
+
+    function getWorkerDisplayName() {
+        return workerProfile.fullName || user.fullName || user.email || 'Bạn';
     }
+
+    function renderWorkerTopbarName() {
+        document.getElementById('userGreet').textContent = getWorkerDisplayName();
+    }
+
+    renderWorkerTopbarName();
+
+    function renderWorkerAvatar() {
+        var avatarBtn = document.getElementById('workerAvatarBtn');
+        if (!avatarBtn) return;
+        if (workerAvatar) {
+            avatarBtn.innerHTML = '<img src="' + workerAvatar + '" alt="avatar">';
+        } else {
+            avatarBtn.textContent = 'Đổi ảnh';
+        }
+    }
+
+    function openWorkerProfileModal() {
+        document.getElementById('workerFullName').value = workerProfile.fullName || user.fullName || '';
+        document.getElementById('workerEmail').value = user.email || '';
+        document.getElementById('workerPhone').value = workerProfile.phone || user.phone || '';
+        document.getElementById('workerCity').value = workerProfile.city || '';
+        document.getElementById('workerSkills').value = workerProfile.skills || '';
+        renderWorkerAvatar();
+        document.getElementById('workerProfileOverlay').classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeWorkerProfileModal() {
+        document.getElementById('workerProfileOverlay').classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    document.getElementById('userProfileTrigger').addEventListener('click', openWorkerProfileModal);
+    document.getElementById('workerProfileClose').addEventListener('click', closeWorkerProfileModal);
+    document.getElementById('workerProfileCancel').addEventListener('click', closeWorkerProfileModal);
+    document.getElementById('workerProfileOverlay').addEventListener('click', function (e) {
+        if (e.target.id === 'workerProfileOverlay') closeWorkerProfileModal();
+    });
+
+    document.getElementById('workerAvatarBtn').addEventListener('click', function () {
+        document.getElementById('workerAvatarInput').click();
+    });
+    document.getElementById('workerAvatarInput').addEventListener('change', function () {
+        var file = this.files[0];
+        if (!file) return;
+        if (file.size > 2 * 1024 * 1024) {
+            alert('Ảnh quá lớn, vui lòng chọn ảnh dưới 2MB.');
+            return;
+        }
+        var reader = new FileReader();
+        reader.onload = function (ev) {
+            workerAvatar = ev.target.result;
+            localStorage.setItem('wf_worker_avatar', workerAvatar);
+            renderWorkerAvatar();
+        };
+        reader.readAsDataURL(file);
+    });
+
+    document.getElementById('workerProfileForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        workerProfile.fullName = document.getElementById('workerFullName').value.trim();
+        workerProfile.phone = document.getElementById('workerPhone').value.trim();
+        workerProfile.city = document.getElementById('workerCity').value.trim();
+        workerProfile.skills = document.getElementById('workerSkills').value.trim();
+        localStorage.setItem('wf_worker_profile', JSON.stringify(workerProfile));
+
+        if (workerProfile.fullName) {
+            user.fullName = workerProfile.fullName;
+            localStorage.setItem('wf_user', JSON.stringify(user));
+        }
+
+        renderWorkerTopbarName();
+        closeWorkerProfileModal();
+        alert('Đã lưu thông tin cá nhân!');
+    });
 
     document.getElementById('btnLogout').addEventListener('click', function () {
         localStorage.removeItem('wf_user');
@@ -388,21 +714,146 @@
     });
 
     // ── State ─────────────────────────────────────
+    var STATIC_JOBS = [
+        {
+            id: 1,
+            title: 'Phục vụ quán cafe ca sáng',
+            company: 'Yellow Cup Coffee',
+            city: 'Đà Nẵng',
+            salary: '24.000 - 30.000 đ/giờ',
+            type: 'Bán thời gian',
+            deadline: '30/04/2026',
+            address: 'Quận Hải Châu, Đà Nẵng',
+            description: 'Phục vụ khách và dọn bàn theo ca sáng 6h00-10h00.',
+            requirements: ['Đúng giờ', 'Nhanh nhẹn', 'Ưu tiên từng làm quán cafe'],
+            benefits: ['Nhận việc ngay', 'Lịch ca linh hoạt', 'Thưởng chuyên cần tuần']
+        },
+        {
+            id: 2,
+            title: 'Trực fanpage ca tối',
+            company: 'VietArt Food',
+            city: 'Đà Nẵng',
+            salary: '25.000 - 35.000 đ/giờ',
+            type: 'Bán thời gian',
+            deadline: '28/04/2026',
+            address: 'Quận Sơn Trà, Đà Nẵng',
+            description: 'Trả lời tin nhắn và chốt đơn trong khung giờ 18h00-22h30.',
+            requirements: ['Gõ nhanh', 'Biết dùng Facebook', 'Có điện thoại hoặc laptop'],
+            benefits: ['Có thể làm tại nhà', 'Lương theo ca', 'Thưởng theo số đơn']
+        },
+        {
+            id: 3,
+            title: 'Thu ngân cửa hàng tiện lợi',
+            company: 'MiniMart 24h',
+            city: 'Đà Nẵng',
+            salary: '23.000 - 28.000 đ/giờ',
+            type: 'Bán thời gian',
+            deadline: '01/05/2026',
+            address: 'Quận Thanh Khê, Đà Nẵng',
+            description: 'Thu ngân và sắp xếp quầy kệ theo ca 17h00-22h00.',
+            requirements: ['Trung thực', 'Biết tính tiền cơ bản', 'Làm được cuối tuần'],
+            benefits: ['Đào tạo 1 buổi', 'Đăng ký ca theo tuần', 'Phụ cấp ca tối']
+        },
+        {
+            id: 4,
+            title: 'CSKH chat online',
+            company: 'Gems Service',
+            city: 'Đà Nẵng',
+            salary: '26.000 - 32.000 đ/giờ',
+            type: 'Bán thời gian',
+            deadline: '02/05/2026',
+            address: 'Quận Hải Châu, Đà Nẵng',
+            description: 'Chat hỗ trợ khách hàng qua mẫu trả lời sẵn, ca 4 tiếng/ngày.',
+            requirements: ['Lịch sự', 'Gõ tiếng Việt tốt', 'Có tai nghe khi làm remote'],
+            benefits: ['Làm ca ngắn', 'Có kịch bản sẵn', 'Thưởng phản hồi tốt']
+        },
+        {
+            id: 5,
+            title: 'Shipper giao đồ ăn giờ cao điểm',
+            company: 'GoFood Partner',
+            city: 'Đà Nẵng',
+            salary: '30.000 - 45.000 đ/giờ',
+            type: 'Linh hoạt',
+            deadline: '05/05/2026',
+            address: 'Toàn thành phố Đà Nẵng',
+            description: 'Giao đơn khung 11h00-13h00 và 17h00-20h00, đăng ký ca tự do.',
+            requirements: ['Có xe máy', 'Có smartphone', 'Có CCCD hợp lệ'],
+            benefits: ['Nhận ca ngay trong ngày', 'Thưởng giờ cao điểm', 'Thanh toán theo tuần']
+        },
+        {
+            id: 6,
+            title: 'Bán hàng thời trang ca tối',
+            company: 'Urban Tee',
+            city: 'Hồ Chí Minh',
+            salary: '24.000 - 31.000 đ/giờ',
+            type: 'Bán thời gian',
+            deadline: '30/04/2026',
+            address: 'Quận 1, TP. Hồ Chí Minh',
+            description: 'Tư vấn khách tại shop, gấp đồ, kiểm kho nhẹ ca 18h00-22h00.',
+            requirements: ['Giao tiếp ổn', 'Ưa nhìn gọn gàng', 'Làm được 4 ca/tuần'],
+            benefits: ['Không áp KPI nặng', 'Giảm giá sản phẩm', 'Nhận việc sau phỏng vấn nhanh']
+        },
+        {
+            id: 7,
+            title: 'Trông xe ca đêm',
+            company: 'Safe Parking',
+            city: 'Hà Nội',
+            salary: '27.000 - 33.000 đ/giờ',
+            type: 'Bán thời gian',
+            deadline: '03/05/2026',
+            address: 'Quận Nam Từ Liêm, Hà Nội',
+            description: 'Trông xe và hỗ trợ khách gửi xe ca đêm 19h00-23h00.',
+            requirements: ['Sức khỏe tốt', 'Trách nhiệm', 'Ưu tiên gần khu vực'],
+            benefits: ['Ca cố định', 'Có khu nghỉ ngắn', 'Thưởng nếu đủ ca']
+        },
+        {
+            id: 8,
+            title: 'Phụ bếp nhà hàng nhanh',
+            company: 'Lotteria Express',
+            city: 'Hồ Chí Minh',
+            salary: '23.000 - 29.000 đ/giờ',
+            type: 'Bán thời gian',
+            deadline: '29/04/2026',
+            address: 'Quận Bình Thạnh, TP. Hồ Chí Minh',
+            description: 'Chuẩn bị nguyên liệu và dọn khu bếp theo ca 17h00-22h00.',
+            requirements: ['Không cần kinh nghiệm', 'Chịu khó', 'Làm được ca tối'],
+            benefits: ['Bao ăn ca', 'Đào tạo tại chỗ', 'Xếp ca cho sinh viên']
+        },
+        {
+            id: 9,
+            title: 'Gia sư tiếng Anh cuối tuần',
+            company: 'Apollo Link',
+            city: 'Hà Nội',
+            salary: '150.000 - 220.000 đ/giờ',
+            type: 'Linh hoạt',
+            deadline: '06/05/2026',
+            address: 'Quận Cầu Giấy, Hà Nội',
+            description: 'Dạy 1:1 cho học sinh, mỗi buổi 90 phút vào tối hoặc cuối tuần.',
+            requirements: ['Phát âm rõ', 'Yêu thích dạy học', 'Ưu tiên có chứng chỉ'],
+            benefits: ['Chọn lịch tự do', 'Thanh toán theo buổi', 'Có tài liệu mẫu']
+        },
+        {
+            id: 10,
+            title: 'Đóng gói đơn hàng ca 4 tiếng',
+            company: 'Lazada Hub',
+            city: 'Hồ Chí Minh',
+            salary: '25.000 - 32.000 đ/giờ',
+            type: 'Bán thời gian',
+            deadline: '04/05/2026',
+            address: 'TP. Thủ Đức, TP. Hồ Chí Minh',
+            description: 'Quét mã, phân loại và đóng gói đơn hàng theo ca sáng hoặc tối.',
+            requirements: ['Cẩn thận', 'Đứng được 4 tiếng', 'Không yêu cầu kinh nghiệm'],
+            benefits: ['Có hướng dẫn đầu ca', 'Phụ cấp tăng ca', 'Nhận việc nhanh trong 24h']
+        }
+    ];
+
     var allJobs = [];
     var filtered = [];
     var activeId = null;
 
-    // ── Fetch jobs ─────────────────────────────────
-    fetch('http://localhost:3001/api/jobs')
-        .then(function (r) { return r.json(); })
-        .then(function (jobs) {
-            allJobs = jobs;
-            applyFilter();
-        })
-        .catch(function () {
-            document.getElementById('jobList').innerHTML =
-                '<div class="no-result">Không tải được dữ liệu.<br>Hãy chắc server.js đang chạy.</div>';
-        });
+    // ── Static jobs (no server) ───────────────────
+    allJobs = STATIC_JOBS.slice();
+    applyFilter();
 
     // ── Filter & render ────────────────────────────
     function applyFilter() {

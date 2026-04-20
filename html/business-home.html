@@ -380,9 +380,502 @@
         }
         .btn-save:hover { background:#f5d020; }
 
+        /* ── Quick recruit modal ─────────────────── */
+        .recruit-modal { max-width:760px; }
+        .recruit-grid {
+            display:grid;
+            grid-template-columns:repeat(2, minmax(0, 1fr));
+            gap:14px;
+        }
+        .recruit-grid .field { margin-bottom:0; }
+        .field-full { grid-column:1 / -1; }
+        .field-help {
+            display:block;
+            margin-top:6px;
+            font-size:12px;
+            color:#888;
+        }
+        .inline-check {
+            display:flex;
+            align-items:center;
+            gap:8px;
+            margin-top:10px;
+            font-size:13px;
+            color:#444;
+            font-weight:500;
+        }
+        .inline-check input { width:16px; height:16px; accent-color:#f1c40f; }
+        .modal-actions {
+            display:flex;
+            align-items:center;
+            justify-content:flex-end;
+            gap:10px;
+            margin-top:18px;
+        }
+        .btn-secondary {
+            border:1.5px solid #ddd;
+            background:#fff;
+            border-radius:50px;
+            padding:11px 20px;
+            font-size:14px;
+            font-weight:700;
+            cursor:pointer;
+            color:#333;
+            transition:border-color 0.15s;
+        }
+        .btn-secondary:hover { border-color:#cfcfcf; }
+
+        /* ── Recent jobs ─────────────────────────── */
+        .recent-jobs-title {
+            font-size:17px;
+            font-weight:800;
+            color:#111;
+            margin-bottom:6px;
+        }
+        .recent-jobs-sub {
+            font-size:13px;
+            color:#888;
+            margin-bottom:14px;
+        }
+        .recent-jobs-list {
+            display:flex;
+            flex-direction:column;
+            gap:10px;
+        }
+        .job-item {
+            border:1.5px solid #f0f0f0;
+            border-radius:10px;
+            padding:12px;
+            display:flex;
+            align-items:flex-start;
+            justify-content:space-between;
+            gap:12px;
+            background:#fff;
+        }
+        .job-main { min-width:0; }
+        .job-name {
+            font-size:14px;
+            font-weight:700;
+            color:#111;
+            margin-bottom:4px;
+        }
+        .job-meta {
+            font-size:12px;
+            color:#777;
+            line-height:1.5;
+        }
+        .job-tag {
+            border-radius:999px;
+            padding:5px 10px;
+            font-size:11px;
+            font-weight:800;
+            white-space:nowrap;
+        }
+        .job-tag.normal {
+            background:#f5f5f5;
+            color:#444;
+        }
+        .job-tag.urgent {
+            background:#fff0d6;
+            color:#9a6700;
+        }
+        .empty-jobs {
+            border:1.5px dashed #ddd;
+            border-radius:10px;
+            padding:18px;
+            font-size:13px;
+            color:#888;
+            text-align:center;
+            background:#fcfcfc;
+        }
+
+        /* ── Analytics dashboard ────────────────── */
+        .analytics-wrap { margin-top:18px; }
+        .analytics-head {
+            display:flex;
+            align-items:flex-end;
+            justify-content:space-between;
+            gap:12px;
+            margin-bottom:14px;
+        }
+        .analytics-title {
+            font-size:17px;
+            font-weight:800;
+            color:#111;
+        }
+        .analytics-sub {
+            font-size:13px;
+            color:#888;
+            margin-top:4px;
+        }
+        .analytics-period {
+            border:1.5px solid #ddd;
+            border-radius:10px;
+            padding:8px 10px;
+            font-size:13px;
+            font-weight:600;
+            color:#333;
+            background:#fff;
+        }
+
+        .analytics-kpis {
+            display:grid;
+            grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
+            gap:10px;
+            margin-bottom:12px;
+        }
+        .kpi-card {
+            border:1.5px solid #f0f0f0;
+            border-radius:12px;
+            padding:12px;
+            background:#fff;
+        }
+        .kpi-label { font-size:12px; color:#888; margin-bottom:6px; }
+        .kpi-value { font-size:24px; font-weight:800; color:#111; line-height:1; }
+        .kpi-trend {
+            margin-top:6px;
+            font-size:12px;
+            font-weight:700;
+        }
+        .kpi-trend.up { color:#0f9d58; }
+        .kpi-trend.down { color:#e53e3e; }
+        .kpi-trend.flat { color:#a68b00; }
+
+        .analytics-grid {
+            display:grid;
+            grid-template-columns:1.4fr 1fr;
+            gap:12px;
+        }
+        .panel {
+            border:1.5px solid #f0f0f0;
+            border-radius:12px;
+            background:#fff;
+            padding:14px;
+        }
+        .panel h4 {
+            font-size:14px;
+            font-weight:800;
+            color:#111;
+            margin-bottom:10px;
+        }
+
+        .bars {
+            display:flex;
+            flex-direction:column;
+            gap:10px;
+        }
+        .bar-row {
+            display:grid;
+            grid-template-columns:76px 1fr 44px;
+            align-items:center;
+            gap:8px;
+        }
+        .bar-label {
+            font-size:12px;
+            font-weight:600;
+            color:#666;
+        }
+        .bar-track {
+            height:10px;
+            background:#f3f3f3;
+            border-radius:999px;
+            overflow:hidden;
+        }
+        .bar-fill {
+            height:100%;
+            border-radius:999px;
+            background:linear-gradient(90deg,#f1c40f,#f8d84f);
+        }
+        .bar-val {
+            font-size:12px;
+            font-weight:700;
+            color:#444;
+            text-align:right;
+        }
+
+        .source-list {
+            display:flex;
+            flex-direction:column;
+            gap:8px;
+        }
+        .source-item {
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:10px;
+            padding:8px 10px;
+            border-radius:10px;
+            background:#fafafa;
+            border:1px solid #f0f0f0;
+        }
+        .source-name {
+            font-size:12px;
+            color:#555;
+            font-weight:600;
+        }
+        .source-val {
+            font-size:12px;
+            color:#111;
+            font-weight:800;
+        }
+
+        /* ── Business Plus plans modal ───────────── */
+        .plans-overlay {
+            position:fixed;
+            inset:0;
+            background:rgba(14,14,10,0.58);
+            backdrop-filter:blur(4px);
+            display:none;
+            align-items:center;
+            justify-content:center;
+            padding:20px;
+            z-index:700;
+        }
+        .plans-overlay.open {
+            display:flex;
+            animation:fadeIn 0.25s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity:0; }
+            to { opacity:1; }
+        }
+        .plans-modal {
+            width:100%;
+            max-width:1040px;
+            border-radius:22px;
+            background:linear-gradient(165deg,#fffef6 0%,#fff8d7 40%,#fffdf4 100%);
+            border:2px solid #f3d766;
+            box-shadow:0 24px 80px rgba(0,0,0,0.24);
+            position:relative;
+            overflow:hidden;
+            padding:28px;
+        }
+        .plans-modal::before {
+            content:'';
+            position:absolute;
+            width:280px;
+            height:280px;
+            border-radius:50%;
+            right:-100px;
+            top:-120px;
+            background:radial-gradient(circle,#ffe568 0%,rgba(255,229,104,0) 72%);
+            pointer-events:none;
+        }
+        .plans-modal::after {
+            content:'';
+            position:absolute;
+            width:220px;
+            height:220px;
+            border-radius:50%;
+            left:-80px;
+            bottom:-120px;
+            background:radial-gradient(circle,#ffe08a 0%,rgba(255,224,138,0) 70%);
+            pointer-events:none;
+        }
+        .plans-close {
+            position:absolute;
+            top:14px;
+            right:14px;
+            width:36px;
+            height:36px;
+            border-radius:50%;
+            border:none;
+            background:#111;
+            color:#f1c40f;
+            font-size:20px;
+            cursor:pointer;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            z-index:2;
+        }
+        .plans-head {
+            position:relative;
+            z-index:1;
+            margin-bottom:18px;
+        }
+        .plans-eyebrow {
+            display:inline-block;
+            padding:6px 12px;
+            background:#111;
+            color:#f1c40f;
+            border-radius:999px;
+            font-size:11px;
+            font-weight:800;
+            letter-spacing:0.5px;
+            margin-bottom:10px;
+        }
+        .plans-title {
+            font-size:30px;
+            font-weight:900;
+            color:#161616;
+            line-height:1.2;
+            letter-spacing:-0.5px;
+            margin-bottom:8px;
+        }
+        .plans-subtitle {
+            font-size:14px;
+            color:#5e5e5e;
+            max-width:760px;
+        }
+        .plans-grid {
+            position:relative;
+            z-index:1;
+            display:grid;
+            grid-template-columns:repeat(3, minmax(0, 1fr));
+            gap:14px;
+        }
+        .plan-card {
+            border-radius:16px;
+            border:1.8px solid #ecd772;
+            background:#fffdf2;
+            padding:16px;
+            display:flex;
+            flex-direction:column;
+            min-height:350px;
+            transition:transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+        }
+        .plan-card:hover {
+            transform:translateY(-3px);
+            box-shadow:0 10px 24px rgba(196,147,0,0.18);
+        }
+        .plan-card.featured {
+            border-color:#111;
+            background:linear-gradient(180deg,#fff8cb 0%,#fffdf3 100%);
+            box-shadow:0 14px 30px rgba(0,0,0,0.12);
+        }
+        .plan-top {
+            display:flex;
+            align-items:flex-start;
+            justify-content:space-between;
+            gap:8px;
+            margin-bottom:8px;
+        }
+        .plan-name {
+            font-size:18px;
+            font-weight:900;
+            color:#141414;
+        }
+        .plan-badge {
+            font-size:10px;
+            font-weight:800;
+            padding:4px 8px;
+            border-radius:999px;
+            background:#111;
+            color:#f1c40f;
+            letter-spacing:0.4px;
+            white-space:nowrap;
+        }
+        .plan-price {
+            display:flex;
+            align-items:flex-end;
+            gap:6px;
+            margin-bottom:8px;
+        }
+        .plan-price strong {
+            font-size:34px;
+            line-height:1;
+            color:#111;
+            letter-spacing:-0.7px;
+        }
+        .plan-price span {
+            font-size:13px;
+            font-weight:700;
+            color:#666;
+            margin-bottom:4px;
+        }
+        .plan-note {
+            font-size:12px;
+            color:#5d5d5d;
+            line-height:1.5;
+            margin-bottom:12px;
+            min-height:36px;
+        }
+        .plan-features {
+            display:flex;
+            flex-direction:column;
+            gap:8px;
+            margin:6px 0 14px;
+            flex:1;
+        }
+        .plan-features li {
+            list-style:none;
+            font-size:13px;
+            color:#333;
+            line-height:1.45;
+            display:flex;
+            align-items:flex-start;
+            gap:8px;
+        }
+        .plan-features li::before {
+            content:'✓';
+            width:18px;
+            height:18px;
+            flex-shrink:0;
+            border-radius:50%;
+            background:#f1c40f;
+            color:#111;
+            font-size:11px;
+            font-weight:900;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            margin-top:1px;
+        }
+        .plan-cta {
+            width:100%;
+            border:none;
+            border-radius:999px;
+            padding:12px 14px;
+            font-size:13px;
+            font-weight:800;
+            cursor:pointer;
+            font-family:inherit;
+            transition:transform 0.15s, filter 0.15s;
+        }
+        .plan-cta:hover {
+            transform:translateY(-1px);
+            filter:brightness(1.02);
+        }
+        .plan-cta.basic {
+            background:#f2f2f2;
+            color:#222;
+        }
+        .plan-cta.pro {
+            background:#111;
+            color:#f1c40f;
+        }
+        .plan-cta.ultra {
+            background:linear-gradient(90deg,#f1c40f,#ffd94d);
+            color:#141414;
+        }
+        .plans-foot {
+            margin-top:12px;
+            font-size:12px;
+            color:#676767;
+            text-align:center;
+            position:relative;
+            z-index:1;
+        }
+
         @media (max-width:640px) {
             .welcome-banner { flex-direction:column; align-items:flex-start; }
             .header-nav { display:none; }
+        }
+
+        @media (max-width:760px) {
+            .recruit-grid { grid-template-columns:1fr; }
+        }
+
+        @media (max-width:900px) {
+            .analytics-grid { grid-template-columns:1fr; }
+        }
+
+        @media (max-width:960px) {
+            .plans-grid { grid-template-columns:1fr; }
+            .plans-title { font-size:25px; }
+            .plans-modal { padding:22px 16px; }
+            .plan-card { min-height:0; }
         }
     </style>
 </head>
@@ -449,7 +942,7 @@
             <h2 id="welcomeTitle">Chào mừng, Doanh Nghiệp!</h2>
             <p>Bắt đầu đăng tin tuyển dụng và kết nối với hàng nghìn<br>lao động phù hợp trong khu vực của bạn.</p>
         </div>
-        <button class="welcome-btn">+ Đăng tin tuyển dụng</button>
+        <button class="welcome-btn" id="openRecruitFromBanner">+ Đăng tin tuyển dụng</button>
     </div>
 
     <!-- Stats -->
@@ -491,7 +984,7 @@
                 <div class="plus-feat">Huy hiệu doanh nghiệp xác thực</div>
                 <div class="plus-feat">Hỗ trợ ưu tiên 24/7</div>
             </div>
-            <a href="#" class="card-action">Dùng thử miễn phí →</a>
+            <a href="#" class="card-action" id="openBusinessPlusModal">Xem gói ngay →</a>
         </div>
 
         <!-- Post job card -->
@@ -503,7 +996,7 @@
             </div>
             <h3>Đăng tin tuyển dụng</h3>
             <p>Tạo tin tuyển dụng chi tiết, tiếp cận hàng nghìn lao động phù hợp trong khu vực.</p>
-            <a href="#" class="card-action">Tạo ngay →</a>
+            <a href="#" class="card-action" id="openRecruitFromCard">Tạo ngay →</a>
         </div>
 
         <!-- Browse workers card -->
@@ -527,10 +1020,43 @@
             </div>
             <h3>Thống kê tuyển dụng</h3>
             <p>Theo dõi hiệu suất tin đăng, lượt xem, lượt ứng tuyển theo thời gian thực.</p>
-            <a href="#" class="card-action">Xem báo cáo →</a>
+            <a href="#" class="card-action" id="jumpAnalytics">Xem báo cáo →</a>
         </div>
 
     </div>
+
+    <section class="card" style="margin-bottom:4px;">
+        <h3 class="recent-jobs-title">Tin tuyển dụng vừa đăng</h3>
+        <p class="recent-jobs-sub">Danh sách này lưu tạm trên trình duyệt, phù hợp để trình bày nhanh trong buổi giới thiệu.</p>
+        <div class="recent-jobs-list" id="recentJobsList"></div>
+    </section>
+
+    <section class="card analytics-wrap" id="analyticsSection">
+        <div class="analytics-head">
+            <div>
+                <h3 class="analytics-title">Thống kê tuyển dụng</h3>
+                <p class="analytics-sub">Dữ liệu giả để trình bày hiệu quả tuyển dụng, không kết nối hệ thống thật.</p>
+            </div>
+            <select id="analyticsPeriod" class="analytics-period">
+                <option value="7">7 ngày gần nhất</option>
+                <option value="30" selected>30 ngày gần nhất</option>
+                <option value="90">90 ngày gần nhất</option>
+            </select>
+        </div>
+
+        <div class="analytics-kpis" id="analyticsKpis"></div>
+
+        <div class="analytics-grid">
+            <div class="panel">
+                <h4>Lượt ứng tuyển theo tuần</h4>
+                <div class="bars" id="applyBars"></div>
+            </div>
+            <div class="panel">
+                <h4>Nguồn ứng viên</h4>
+                <div class="source-list" id="sourceList"></div>
+            </div>
+        </div>
+    </section>
 
 </main>
 
@@ -577,7 +1103,207 @@
     </div>
 </div>
 
+<!-- ══ QUICK RECRUIT MODAL ══ -->
+<div class="modal-overlay" id="recruitOverlay">
+    <div class="modal recruit-modal">
+        <button class="modal-close" id="recruitClose">&times;</button>
+        <div class="modal-title">Đăng tin tuyển dụng nhanh</div>
+        <div class="modal-subtitle">Mẫu tối giản cho công việc part-time, thao tác trong dưới 1 phút.</div>
+
+        <form id="recruitForm">
+            <div class="recruit-grid">
+                <div class="field field-full">
+                    <label for="jobTitle">Tên công việc</label>
+                    <input type="text" id="jobTitle" required placeholder="VD: Nhân viên phục vụ quán cafe ca tối">
+                </div>
+
+                <div class="field">
+                    <label for="jobCategory">Nhóm công việc</label>
+                    <select id="jobCategory" required>
+                        <option value="">Chọn nhóm</option>
+                        <option>Phục vụ / F&B</option>
+                        <option>Bán hàng</option>
+                        <option>Kho / Giao nhận</option>
+                        <option>Thu ngân</option>
+                        <option>Gia sư</option>
+                        <option>Khác</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="jobShift">Ca làm part-time</label>
+                    <select id="jobShift" required>
+                        <option value="">Chọn ca</option>
+                        <option>Ca sáng</option>
+                        <option>Ca chiều</option>
+                        <option>Ca tối</option>
+                        <option>Cuối tuần</option>
+                        <option>Xoay ca linh hoạt</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="jobCity">Khu vực</label>
+                    <input type="text" id="jobCity" required placeholder="VD: TP. HCM - Quận 1">
+                </div>
+
+                <div class="field">
+                    <label for="jobQuantity">Số lượng cần tuyển</label>
+                    <input type="number" id="jobQuantity" min="1" value="1" required>
+                </div>
+
+                <div class="field">
+                    <label for="salaryFrom">Lương từ (VND/giờ)</label>
+                    <input type="number" id="salaryFrom" min="10000" step="1000" required placeholder="25000">
+                </div>
+
+                <div class="field">
+                    <label for="salaryTo">Lương đến (VND/giờ)</label>
+                    <input type="number" id="salaryTo" min="10000" step="1000" required placeholder="35000">
+                </div>
+
+                <div class="field">
+                    <label for="jobStartDate">Ngày bắt đầu</label>
+                    <input type="date" id="jobStartDate" required>
+                </div>
+
+                <div class="field">
+                    <label for="jobContact">SĐT liên hệ</label>
+                    <input type="tel" id="jobContact" required placeholder="0912 345 678">
+                </div>
+
+                <div class="field field-full">
+                    <label for="jobNote">Mô tả ngắn</label>
+                    <textarea id="jobNote" placeholder="Yêu cầu cơ bản, thời gian làm, quyền lợi..."></textarea>
+                    <span class="field-help">Gợi ý: ghi ngắn gọn 2-3 ý để ứng viên hiểu nhanh.</span>
+                    <label class="inline-check" for="jobUrgent">
+                        <input type="checkbox" id="jobUrgent">
+                        Ưu tiên tuyển gấp trong 24 giờ
+                    </label>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="btn-secondary" id="recruitCancel">Hủy</button>
+                <button type="submit" class="btn-save" style="width:auto;padding:11px 22px;margin:0;">Đăng tin ngay</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- ══ BUSINESS PLUS PLANS ══ -->
+<div class="plans-overlay" id="plansOverlay">
+    <div class="plans-modal">
+        <button class="plans-close" id="plansClose">&times;</button>
+
+        <div class="plans-head">
+            <span class="plans-eyebrow">BUSINESS PLUS</span>
+            <h3 class="plans-title">Tăng tốc tuyển dụng với gói phù hợp cho doanh nghiệp</h3>
+            <p class="plans-subtitle">Giao diện ưu tiên tốc độ: chọn gói trong vài giây, bắt đầu ngay mà không cần thao tác phức tạp.</p>
+        </div>
+
+        <div class="plans-grid">
+            <article class="plan-card">
+                <div class="plan-top">
+                    <h4 class="plan-name">Cơ bản</h4>
+                    <span class="plan-badge">MIEN PHI</span>
+                </div>
+                <div class="plan-price"><strong>0k</strong><span>/thang</span></div>
+                <p class="plan-note">Phu hop doanh nghiep moi bat dau dang tin.</p>
+                <ul class="plan-features">
+                    <li>Dang tin va quan ly ho so co ban</li>
+                    <li>Ho tro bo loc ung vien tieu chuan</li>
+                    <li>Xem thong ke tong quan</li>
+                </ul>
+                <button class="plan-cta basic" data-plan="basic">Su dung goi Co ban</button>
+            </article>
+
+            <article class="plan-card featured">
+                <div class="plan-top">
+                    <h4 class="plan-name">Pro</h4>
+                    <span class="plan-badge">NOI BAT</span>
+                </div>
+                <div class="plan-price"><strong>89k</strong><span>/thang</span></div>
+                <p class="plan-note">Duoc dung thu mien phi 7 ngay cho lan dau tien.</p>
+                <ul class="plan-features">
+                    <li>Uu tien hien thi tin tuyen dung</li>
+                    <li>Xem va tim kiem ho so nang cao</li>
+                    <li>Thong bao ung vien moi theo thoi gian thuc</li>
+                </ul>
+                <button class="plan-cta pro" data-plan="pro" id="proPlanBtn">Bat dau 7 ngay mien phi</button>
+            </article>
+
+            <article class="plan-card">
+                <div class="plan-top">
+                    <h4 class="plan-name">Ultra Pro</h4>
+                    <span class="plan-badge">CAO CAP</span>
+                </div>
+                <div class="plan-price"><strong>199k</strong><span>/thang</span></div>
+                <p class="plan-note">Danh cho doanh nghiep can toc do tuyen dung toi da.</p>
+                <ul class="plan-features">
+                    <li>Hien thi uu tien cao nhat</li>
+                    <li>Gan nhan doanh nghiep xac thuc nang cao</li>
+                    <li>Ho tro rieng va bao cao chuyen sau</li>
+                </ul>
+                <button class="plan-cta ultra" data-plan="ultra">Nang cap Ultra Pro</button>
+            </article>
+        </div>
+
+        <p class="plans-foot">Gia da bao gom uu dai hien tai. Co the thay doi theo chuong trinh tung thoi diem.</p>
+    </div>
+</div>
+
 <script>
+    (function initWorkFastAlert() {
+        if (window.__wfAlertReady) return;
+        window.__wfAlertReady = true;
+
+        var style = document.createElement('style');
+        style.textContent = [
+            '.wf-alert-overlay{position:fixed;inset:0;background:rgba(15,15,15,0.45);display:none;align-items:center;justify-content:center;z-index:1100;padding:20px;}',
+            '.wf-alert-overlay.open{display:flex;}',
+            '.wf-alert-box{width:min(92vw,440px);background:linear-gradient(165deg,#fffdf2,#fff7cf);border:2px solid #f1c40f;border-radius:16px;box-shadow:0 20px 48px rgba(0,0,0,0.26);padding:18px 18px 14px;color:#2d2d2d;}',
+            '.wf-alert-title{font-size:15px;font-weight:800;color:#111;margin-bottom:8px;}',
+            '.wf-alert-message{font-size:14px;line-height:1.55;white-space:pre-line;color:#333;}',
+            '.wf-alert-actions{display:flex;justify-content:flex-end;margin-top:14px;}',
+            '.wf-alert-btn{border:none;border-radius:999px;background:#f1c40f;color:#111;font-size:13px;font-weight:800;padding:8px 16px;cursor:pointer;font-family:inherit;}'
+        ].join('');
+        document.head.appendChild(style);
+
+        var overlay = document.createElement('div');
+        overlay.className = 'wf-alert-overlay';
+        overlay.innerHTML =
+            '<div class="wf-alert-box" role="alertdialog" aria-modal="true" aria-live="assertive">' +
+                '<div class="wf-alert-title">Thông báo</div>' +
+                '<div class="wf-alert-message" id="wfAlertMessage"></div>' +
+                '<div class="wf-alert-actions"><button class="wf-alert-btn" id="wfAlertOkBtn">OK</button></div>' +
+            '</div>';
+        document.body.appendChild(overlay);
+
+        var msg = overlay.querySelector('#wfAlertMessage');
+        var okBtn = overlay.querySelector('#wfAlertOkBtn');
+
+        function closeAlert() {
+            overlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        okBtn.addEventListener('click', closeAlert);
+        overlay.addEventListener('click', function (e) {
+            if (e.target === overlay) closeAlert();
+        });
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && overlay.classList.contains('open')) closeAlert();
+        });
+
+        window.alert = function (message) {
+            msg.textContent = String(message == null ? '' : message);
+            overlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            okBtn.focus();
+        };
+    })();
+
     // ── Auth guard ─────────────────────────────────
     var user = null;
     try { user = JSON.parse(localStorage.getItem('wf_user') || 'null'); } catch(e){}
@@ -621,7 +1347,7 @@
     var avatarInput = document.getElementById('avatarInput');
     function triggerAvatarPick() { avatarInput.click(); }
 
-    ['avatarBtn','menuAvatarBtn','avatarModalBtn'].forEach(function(id) {
+    ['menuAvatarBtn','avatarModalBtn'].forEach(function(id) {
         var el = document.getElementById(id);
         if (el) el.addEventListener('click', function(e) {
             e.stopPropagation();
@@ -656,6 +1382,156 @@
         localStorage.removeItem('wf_user');
         window.location.href = '../index.html';
     });
+
+    // ── Recruit jobs state ────────────────────────
+    var JOBS_KEY = 'wf_jobs';
+    function readJobs() {
+        try {
+            return JSON.parse(localStorage.getItem(JOBS_KEY) || '[]');
+        } catch (e) {
+            return [];
+        }
+    }
+    function writeJobs(jobs) {
+        localStorage.setItem(JOBS_KEY, JSON.stringify(jobs));
+    }
+    function money(v) {
+        return Number(v || 0).toLocaleString('vi-VN');
+    }
+    function renderRecentJobs() {
+        var box = document.getElementById('recentJobsList');
+        var jobs = readJobs();
+        if (!jobs.length) {
+            box.innerHTML = '<div class="empty-jobs">Chưa có tin nào. Nhấn "Đăng tin tuyển dụng" để tạo tin đầu tiên.</div>';
+            return;
+        }
+
+        var html = jobs.slice(0, 6).map(function (job) {
+            var tagClass = job.urgent ? 'urgent' : 'normal';
+            var tagText = job.urgent ? 'TUYEN GAP' : 'PART-TIME';
+            return [
+                '<article class="job-item">',
+                    '<div class="job-main">',
+                        '<div class="job-name">' + job.title + '</div>',
+                        '<div class="job-meta">',
+                            job.category + ' • ' + job.shift + '<br>',
+                            job.city + ' • ' + job.quantity + ' vi tri<br>',
+                            money(job.salaryFrom) + ' - ' + money(job.salaryTo) + ' VND/gio',
+                        '</div>',
+                    '</div>',
+                    '<span class="job-tag ' + tagClass + '">' + tagText + '</span>',
+                '</article>'
+            ].join('');
+        }).join('');
+
+        box.innerHTML = html;
+    }
+
+    // ── Analytics sample data ─────────────────────
+    var ANALYTICS_DATA = {
+        '7': {
+            kpis: [
+                { label: 'Tin đang chạy', value: '6', trend: '+1 tin moi', cls: 'up' },
+                { label: 'Tong luot ung tuyen', value: '38', trend: '+12% so voi tuan truoc', cls: 'up' },
+                { label: 'Ty le phan hoi', value: '82%', trend: '+4%', cls: 'up' },
+                { label: 'Chi phi moi ung vien', value: '42k', trend: '-6%', cls: 'up' }
+            ],
+            bars: [
+                { label: 'T2', value: 4 },
+                { label: 'T3', value: 7 },
+                { label: 'T4', value: 5 },
+                { label: 'T5', value: 6 },
+                { label: 'T6', value: 8 },
+                { label: 'T7', value: 5 },
+                { label: 'CN', value: 3 }
+            ],
+            sources: [
+                { name: 'Tim kiem WorkFast', value: '47%' },
+                { name: 'Tin duoc de xuat', value: '25%' },
+                { name: 'Chia se Facebook', value: '18%' },
+                { name: 'Gioi thieu noi bo', value: '10%' }
+            ]
+        },
+        '30': {
+            kpis: [
+                { label: 'Tin dang chay', value: '18', trend: '+3 tin moi', cls: 'up' },
+                { label: 'Tong luot ung tuyen', value: '214', trend: '+18% so voi thang truoc', cls: 'up' },
+                { label: 'Ty le phan hoi', value: '76%', trend: '+2%', cls: 'up' },
+                { label: 'Ty le dat hen phong van', value: '31%', trend: 'On dinh', cls: 'flat' }
+            ],
+            bars: [
+                { label: 'Tuan 1', value: 38 },
+                { label: 'Tuan 2', value: 52 },
+                { label: 'Tuan 3', value: 61 },
+                { label: 'Tuan 4', value: 63 }
+            ],
+            sources: [
+                { name: 'Tim kiem WorkFast', value: '41%' },
+                { name: 'Tin duoc de xuat', value: '28%' },
+                { name: 'Chia se Facebook', value: '17%' },
+                { name: 'Zalo cong dong', value: '9%' },
+                { name: 'Khac', value: '5%' }
+            ]
+        },
+        '90': {
+            kpis: [
+                { label: 'Tin dang chay', value: '46', trend: '+8 tin moi', cls: 'up' },
+                { label: 'Tong luot ung tuyen', value: '689', trend: '+22% so voi quy truoc', cls: 'up' },
+                { label: 'Ty le phan hoi', value: '71%', trend: '-1%', cls: 'down' },
+                { label: 'So lao dong da nhan viec', value: '119', trend: '+16%', cls: 'up' }
+            ],
+            bars: [
+                { label: 'Thang 1', value: 188 },
+                { label: 'Thang 2', value: 227 },
+                { label: 'Thang 3', value: 274 }
+            ],
+            sources: [
+                { name: 'Tim kiem WorkFast', value: '39%' },
+                { name: 'Tin duoc de xuat', value: '31%' },
+                { name: 'Chia se Facebook', value: '14%' },
+                { name: 'Zalo cong dong', value: '11%' },
+                { name: 'Khac', value: '5%' }
+            ]
+        }
+    };
+
+    function renderAnalytics(period) {
+        var data = ANALYTICS_DATA[period] || ANALYTICS_DATA['30'];
+
+        var kpiBox = document.getElementById('analyticsKpis');
+        kpiBox.innerHTML = data.kpis.map(function (k) {
+            return [
+                '<article class="kpi-card">',
+                    '<div class="kpi-label">' + k.label + '</div>',
+                    '<div class="kpi-value">' + k.value + '</div>',
+                    '<div class="kpi-trend ' + k.cls + '">' + k.trend + '</div>',
+                '</article>'
+            ].join('');
+        }).join('');
+
+        var max = Math.max.apply(null, data.bars.map(function (b) { return b.value; })) || 1;
+        var barsBox = document.getElementById('applyBars');
+        barsBox.innerHTML = data.bars.map(function (b) {
+            var width = Math.max(8, Math.round((b.value / max) * 100));
+            return [
+                '<div class="bar-row">',
+                    '<span class="bar-label">' + b.label + '</span>',
+                    '<div class="bar-track"><div class="bar-fill" style="width:' + width + '%"></div></div>',
+                    '<span class="bar-val">' + b.value + '</span>',
+                '</div>'
+            ].join('');
+        }).join('');
+
+        var sourceBox = document.getElementById('sourceList');
+        sourceBox.innerHTML = data.sources.map(function (s) {
+            return [
+                '<div class="source-item">',
+                    '<span class="source-name">' + s.name + '</span>',
+                    '<span class="source-val">' + s.value + '</span>',
+                '</div>'
+            ].join('');
+        }).join('');
+    }
 
     // ── Profile modal ──────────────────────────────
     var profileOverlay = document.getElementById('profileOverlay');
@@ -696,6 +1572,150 @@
         closeProfile();
         alert('Đã lưu thông tin doanh nghiệp!');
     });
+
+    // ── Recruit modal actions ─────────────────────
+    var recruitOverlay = document.getElementById('recruitOverlay');
+    var recruitForm = document.getElementById('recruitForm');
+    function openRecruit() {
+        document.getElementById('jobContact').value = profile.phone || user.phone || '';
+        recruitOverlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeRecruit() {
+        recruitOverlay.classList.remove('open');
+        if (!profileOverlay.classList.contains('open')) {
+            document.body.style.overflow = '';
+        }
+    }
+
+    document.getElementById('openRecruitFromBanner').addEventListener('click', function () {
+        openRecruit();
+    });
+    document.getElementById('openRecruitFromCard').addEventListener('click', function (e) {
+        e.preventDefault();
+        openRecruit();
+    });
+    document.getElementById('recruitClose').addEventListener('click', closeRecruit);
+    document.getElementById('recruitCancel').addEventListener('click', closeRecruit);
+    recruitOverlay.addEventListener('click', function (e) {
+        if (e.target === recruitOverlay) closeRecruit();
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeRecruit();
+    });
+
+    recruitForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var salaryFrom = Number(document.getElementById('salaryFrom').value || 0);
+        var salaryTo = Number(document.getElementById('salaryTo').value || 0);
+        if (salaryTo < salaryFrom) {
+            alert('Lương đến phải lớn hơn hoặc bằng lương từ.');
+            return;
+        }
+
+        var job = {
+            id: Date.now(),
+            title: document.getElementById('jobTitle').value.trim(),
+            category: document.getElementById('jobCategory').value,
+            shift: document.getElementById('jobShift').value,
+            city: document.getElementById('jobCity').value.trim(),
+            quantity: Number(document.getElementById('jobQuantity').value || 1),
+            salaryFrom: salaryFrom,
+            salaryTo: salaryTo,
+            startDate: document.getElementById('jobStartDate').value,
+            contact: document.getElementById('jobContact').value.trim(),
+            note: document.getElementById('jobNote').value.trim(),
+            urgent: document.getElementById('jobUrgent').checked,
+            employerEmail: user.email || '',
+            employerName: profile.name || user.email || 'Doanh Nghiệp',
+            createdAt: new Date().toISOString()
+        };
+
+        var jobs = readJobs();
+        jobs.unshift(job);
+        writeJobs(jobs);
+        renderRecentJobs();
+
+        recruitForm.reset();
+        closeRecruit();
+        alert('Đăng tin thành công! Tin đã được lưu trên trình duyệt này.');
+    });
+
+    // ── Business Plus plans popup ────────────────
+    var plansOverlay = document.getElementById('plansOverlay');
+    var proPlanBtn = document.getElementById('proPlanBtn');
+    var PRO_TRIAL_KEY = 'wf_pro_trial_used';
+
+    function syncProPlanButton() {
+        var used = localStorage.getItem(PRO_TRIAL_KEY) === '1';
+        if (!proPlanBtn) return;
+        proPlanBtn.textContent = used ? 'Nang cap Pro - 89k/thang' : 'Bat dau 7 ngay mien phi';
+    }
+
+    function openPlansModal() {
+        plansOverlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        syncProPlanButton();
+    }
+
+    function closePlansModal() {
+        plansOverlay.classList.remove('open');
+        if (!profileOverlay.classList.contains('open') && !recruitOverlay.classList.contains('open')) {
+            document.body.style.overflow = '';
+        }
+    }
+
+    document.getElementById('openBusinessPlusModal').addEventListener('click', function (e) {
+        e.preventDefault();
+        openPlansModal();
+    });
+
+    document.getElementById('plansClose').addEventListener('click', closePlansModal);
+    plansOverlay.addEventListener('click', function (e) {
+        if (e.target === plansOverlay) closePlansModal();
+    });
+
+    document.querySelectorAll('.plan-cta').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var plan = btn.dataset.plan;
+            if (plan === 'basic') {
+                alert('Ban dang o goi Co ban mien phi.');
+                closePlansModal();
+                return;
+            }
+
+            if (plan === 'pro') {
+                var used = localStorage.getItem(PRO_TRIAL_KEY) === '1';
+                if (!used) {
+                    localStorage.setItem(PRO_TRIAL_KEY, '1');
+                    syncProPlanButton();
+                    alert('Kich hoat dung thu Pro 7 ngay thanh cong! Sau thoi gian thu, phi Pro la 89k/thang.');
+                } else {
+                    alert('Ban da dung thu 7 ngay truoc do. Gia goi Pro hien tai la 89k/thang.');
+                }
+                closePlansModal();
+                return;
+            }
+
+            if (plan === 'ultra') {
+                alert('Ban da chon goi Ultra Pro voi muc phi 199k/thang.');
+                closePlansModal();
+            }
+        });
+    });
+
+    // ── Analytics actions ─────────────────────────
+    document.getElementById('analyticsPeriod').addEventListener('change', function (e) {
+        renderAnalytics(e.target.value);
+    });
+    document.getElementById('jumpAnalytics').addEventListener('click', function (e) {
+        e.preventDefault();
+        var target = document.getElementById('analyticsSection');
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    renderRecentJobs();
+    renderAnalytics('30');
 </script>
 </body>
 </html>
