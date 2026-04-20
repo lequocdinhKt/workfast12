@@ -4,6 +4,105 @@
 // currentUser.type === 'business' | 'worker' | null (chưa đăng nhập)
 var currentUser = JSON.parse(localStorage.getItem('wf_user') || 'null');
 
+function getApiBaseUrl() {
+    // Allow quick override for demo: localStorage.setItem('wf_api_base', 'https://your-api-domain.com')
+    var override = localStorage.getItem('wf_api_base');
+    if (override) return override.replace(/\/$/, '');
+
+    var isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    return isLocal ? 'http://localhost:3001' : window.location.origin;
+}
+
+var API_BASE_URL = getApiBaseUrl();
+
+function readDemoUsers() {
+    try {
+        return JSON.parse(localStorage.getItem('wf_demo_users') || '[]');
+    } catch (e) {
+        return [];
+    }
+}
+
+function writeDemoUsers(users) {
+    localStorage.setItem('wf_demo_users', JSON.stringify(users));
+}
+
+function safeUser(user) {
+    var clone = {};
+    Object.keys(user).forEach(function (key) {
+        if (key !== 'password') clone[key] = user[key];
+    });
+    return clone;
+}
+
+function handleDemoAuth(endpoint, data) {
+    var users = readDemoUsers();
+
+    if (endpoint === '/api/login') {
+        var found = users.find(function (u) {
+            return u.email === data.email && u.password === data.password;
+        });
+
+        if (!found) {
+            return { ok: false, message: 'Email hoặc mật khẩu không đúng.' };
+        }
+
+        return {
+            ok: true,
+            message: 'Đăng nhập thành công! (Demo offline)',
+            user: safeUser(found)
+        };
+    }
+
+    if (endpoint === '/api/register' || endpoint === '/api/register-worker') {
+        if (!data.email || !data.password) {
+            return { ok: false, message: 'Thiếu email hoặc mật khẩu.' };
+        }
+
+        if (users.find(function (u) { return u.email === data.email; })) {
+            return { ok: false, message: 'Email đã được đăng ký.' };
+        }
+
+        var type = endpoint === '/api/register-worker' ? 'worker' : 'business';
+        var newUser = {
+            id: Date.now(),
+            type: type,
+            fullName: data.fullName || '',
+            email: data.email,
+            phone: data.phone || '',
+            password: data.password,
+            idNumber: data.idNumber || '',
+            createdAt: new Date().toISOString()
+        };
+
+        users.push(newUser);
+        writeDemoUsers(users);
+
+        return {
+            ok: true,
+            message: type === 'worker' ? 'Đăng ký lao động thành công! (Demo offline)' : 'Đăng ký doanh nghiệp thành công! (Demo offline)'
+        };
+    }
+
+    return { ok: false, message: 'Không hỗ trợ endpoint demo này.' };
+}
+
+function submitAuthRequest(endpoint, data) {
+    return fetch(API_BASE_URL + endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    })
+    .then(function (r) {
+        return r.json().catch(function () {
+            return { ok: false, message: 'Phản hồi từ máy chủ không hợp lệ.' };
+        });
+    })
+    .catch(function () {
+        return handleDemoAuth(endpoint, data);
+    });
+}
+
 function setCurrentUser(user) {
     currentUser = user;
     if (user) {
@@ -86,12 +185,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (el.name && el.type !== 'file') data[el.name] = el.value;
                 });
 
-                fetch('http://localhost:3001' + endpoint, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                })
-                .then(function (r) { return r.json(); })
+                if (data.confirmPassword && data.password !== data.confirmPassword) {
+                    alert('Mật khẩu xác nhận không khớp.');
+                    return;
+                }
+
+                submitAuthRequest(endpoint, data)
                 .then(function (res) {
                     alert(res.message);
                     if (res.ok) {
@@ -108,7 +207,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 })
                 .catch(function () {
-                    alert('Không kết nối được máy chủ. Hãy chắc chắn server.js đang chạy.');
+                    alert('Đăng ký/đăng nhập thất bại. Vui lòng thử lại.');
                 });
             });
         }
