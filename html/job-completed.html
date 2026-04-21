@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WorkFast - Hoan Thanh Cong Viec</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter','Segoe UI',sans-serif;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(241,196,15,0.22), transparent 38%),
+                radial-gradient(circle at 80% 10%, rgba(0,0,0,0.08), transparent 34%),
+                linear-gradient(145deg, #fffdf2 0%, #f7f7f3 45%, #f2f6ff 100%);
+            color: #1f1f1f;
+            padding: 20px;
+        }
+        .done-card {
+            width: min(94vw, 760px);
+            background: #fff;
+            border: 2px solid #f1c40f;
+            border-radius: 22px;
+            box-shadow: 0 22px 70px rgba(0,0,0,0.14);
+            overflow: hidden;
+        }
+        .done-head {
+            background: linear-gradient(135deg, #111 0%, #242424 100%);
+            color: #fff;
+            padding: 28px 26px 22px;
+            position: relative;
+        }
+        .done-badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 800;
+            color: #111;
+            background: #f1c40f;
+            border-radius: 999px;
+            padding: 5px 12px;
+            margin-bottom: 12px;
+            letter-spacing: 0.4px;
+        }
+        .done-title {
+            font-size: 28px;
+            line-height: 1.2;
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+        .done-sub {
+            color: #c9c9c9;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .done-body {
+            padding: 22px 24px 24px;
+        }
+        .done-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+        .info-box {
+            border: 1.5px solid #f0f0f0;
+            border-radius: 12px;
+            padding: 12px;
+            background: #fff;
+        }
+        .info-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #888;
+            margin-bottom: 5px;
+        }
+        .info-value {
+            font-size: 16px;
+            font-weight: 800;
+            color: #111;
+            line-height: 1.4;
+        }
+        .highlight-box {
+            border: 2px solid #f1c40f;
+            background: #fffcf1;
+            border-radius: 14px;
+            padding: 14px;
+            margin: 8px 0 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+        }
+        .highlight-left {
+            min-width: 0;
+        }
+        .highlight-title {
+            font-size: 12px;
+            color: #8a6b00;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .highlight-value {
+            font-size: 24px;
+            font-weight: 900;
+            color: #111;
+            line-height: 1;
+        }
+        .rating-pill {
+            border-radius: 999px;
+            background: #111;
+            color: #f1c40f;
+            font-size: 13px;
+            font-weight: 800;
+            padding: 8px 12px;
+            white-space: nowrap;
+        }
+        .done-note {
+            font-size: 13px;
+            color: #5f5f5f;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        .done-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .btn {
+            border: none;
+            border-radius: 999px;
+            padding: 12px 18px;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            font-family: inherit;
+            text-decoration: none;
+            text-align: center;
+            flex: 1;
+        }
+        .btn-primary {
+            background: #f1c40f;
+            color: #111;
+        }
+        .btn-primary:hover { background: #f5d020; }
+        .btn-secondary {
+            background: #fff;
+            color: #555;
+            border: 1.5px solid #d8d8d8;
+        }
+        .btn-secondary:hover { border-color: #bcbcbc; }
+        @media (max-width: 760px) {
+            .done-title { font-size: 24px; }
+            .done-grid { grid-template-columns: 1fr; }
+            .done-actions { flex-direction: column; }
+            .highlight-box { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+    <article class="done-card">
+        <header class="done-head">
+            <span class="done-badge">CONGRATULATIONS</span>
+            <h1 class="done-title">Ban da hoan thanh cong viec</h1>
+            <p class="done-sub">Cam on ban da giu uy tin va hoan tat ca lam dung thoi gian.</p>
+        </header>
+
+        <section class="done-body">
+            <div class="done-grid">
+                <div class="info-box">
+                    <div class="info-label">Cong viec</div>
+                    <div class="info-value" id="doneTitle">Phuc vu quan cafe ca toi</div>
+                </div>
+                <div class="info-box">
+                    <div class="info-label">Doanh nghiep</div>
+                    <div class="info-value" id="doneCompany">Cafe Sunlight</div>
+                </div>
+                <div class="info-box">
+                    <div class="info-label">Khu vuc</div>
+                    <div class="info-value" id="doneCity">TP. HCM</div>
+                </div>
+                <div class="info-box">
+                    <div class="info-label">Thoi diem hoan thanh</div>
+                    <div class="info-value" id="doneTime">--</div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <div class="highlight-left">
+                    <div class="highlight-title">Thu nhap uoc tinh cho ca nay</div>
+                    <div class="highlight-value" id="doneSalary">30.000 - 40.000 đ/gio</div>
+                </div>
+                <div class="rating-pill" id="doneRating">Danh gia NTD: 4.2/5</div>
+            </div>
+
+            <p class="done-note">Ket qua nay da duoc ghi nhan vao lich su lam viec cua ban. Tiep tuc nhan them viec de tang diem uy tin va mo khoa nhieu co hoi tot hon.</p>
+
+            <div class="done-actions">
+                <a class="btn btn-primary" href="./worker-home.html">Tim cong viec tiep theo</a>
+                <button class="btn btn-secondary" id="doneBackBtn" type="button">Quay lai trang truoc</button>
+            </div>
+        </section>
+    </article>
+
+    <script>
+        (function loadCompletedJob() {
+            var data = null;
+            try {
+                data = JSON.parse(localStorage.getItem('wf_last_completed_job') || 'null');
+            } catch (e) {
+                data = null;
+            }
+            if (!data) return;
+
+            var titleEl = document.getElementById('doneTitle');
+            var companyEl = document.getElementById('doneCompany');
+            var cityEl = document.getElementById('doneCity');
+            var timeEl = document.getElementById('doneTime');
+            var salaryEl = document.getElementById('doneSalary');
+            var ratingEl = document.getElementById('doneRating');
+
+            titleEl.textContent = data.title || titleEl.textContent;
+            companyEl.textContent = data.company || companyEl.textContent;
+            cityEl.textContent = data.city || cityEl.textContent;
+            salaryEl.textContent = data.salary || salaryEl.textContent;
+
+            if (data.completedAt) {
+                var d = new Date(data.completedAt);
+                timeEl.textContent = d.toLocaleString('vi-VN');
+            }
+            if (typeof data.rating === 'number') {
+                ratingEl.textContent = 'Danh gia NTD: ' + data.rating.toFixed(1) + '/5';
+            }
+        })();
+
+        document.getElementById('doneBackBtn').addEventListener('click', function () {
+            if (history.length > 1) history.back();
+            else window.location.href = './worker-home.html';
+        });
+    </script>
+</body>
+</html>

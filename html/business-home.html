@@ -489,6 +489,97 @@
             background:#fcfcfc;
         }
 
+        /* ── Pending applications ───────────────── */
+        .pending-apps-list {
+            display:flex;
+            flex-direction:column;
+            gap:10px;
+        }
+        .pending-item {
+            border:1.5px solid #f0f0f0;
+            border-radius:12px;
+            padding:12px;
+            display:flex;
+            align-items:flex-start;
+            justify-content:space-between;
+            gap:12px;
+            background:#fff;
+        }
+        .pending-main { min-width:0; }
+        .pending-name {
+            font-size:14px;
+            font-weight:800;
+            color:#111;
+            margin-bottom:4px;
+        }
+        .pending-sub {
+            font-size:12px;
+            color:#777;
+            line-height:1.5;
+            margin-bottom:8px;
+        }
+        .pending-meta {
+            display:flex;
+            flex-wrap:wrap;
+            gap:6px;
+            margin-bottom:8px;
+        }
+        .meta-pill {
+            display:inline-flex;
+            align-items:center;
+            gap:4px;
+            border-radius:999px;
+            padding:5px 10px;
+            font-size:11px;
+            font-weight:800;
+            white-space:nowrap;
+        }
+        .meta-pill.jobs { background:#111; color:#f1c40f; }
+        .meta-pill.star { background:#fff7dd; color:#8a6b00; }
+        .pending-traits {
+            display:flex;
+            flex-wrap:wrap;
+            gap:6px;
+        }
+        .trait-pill {
+            border:1.5px solid #f1c40f;
+            background:#fffdf2;
+            color:#7d6000;
+            border-radius:999px;
+            padding:4px 9px;
+            font-size:11px;
+            font-weight:700;
+            white-space:nowrap;
+        }
+        .pending-actions {
+            display:flex;
+            flex-direction:column;
+            gap:8px;
+            flex-shrink:0;
+        }
+        .btn-approve,
+        .btn-reject {
+            border:none;
+            border-radius:999px;
+            padding:9px 14px;
+            font-size:12px;
+            font-weight:800;
+            cursor:pointer;
+            font-family:inherit;
+            white-space:nowrap;
+        }
+        .btn-approve {
+            background:#f1c40f;
+            color:#111;
+        }
+        .btn-approve:hover { background:#f5d020; }
+        .btn-reject {
+            background:#fff;
+            border:1.5px solid #ddd;
+            color:#555;
+        }
+        .btn-reject:hover { border-color:#bbb; }
+
         /* ── Analytics dashboard ────────────────── */
         .analytics-wrap { margin-top:18px; }
         .analytics-head {
@@ -722,7 +813,7 @@
             position:relative;
             z-index:1;
             display:grid;
-            grid-template-columns:repeat(3, minmax(0, 1fr));
+            grid-template-columns:repeat(4, minmax(0, 1fr));
             gap:14px;
         }
         .plan-card {
@@ -871,6 +962,9 @@
             .analytics-grid { grid-template-columns:1fr; }
         }
 
+        @media (max-width:1100px) {
+            .plans-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+        }
         @media (max-width:960px) {
             .plans-grid { grid-template-columns:1fr; }
             .plans-title { font-size:25px; }
@@ -1027,15 +1121,21 @@
 
     <section class="card" style="margin-bottom:4px;">
         <h3 class="recent-jobs-title">Tin tuyển dụng vừa đăng</h3>
-        <p class="recent-jobs-sub">Danh sách này lưu tạm trên trình duyệt, phù hợp để trình bày nhanh trong buổi giới thiệu.</p>
+        <p class="recent-jobs-sub">Theo dõi các tin đăng mới nhất để quản lý hiệu quả tuyển dụng theo thời gian thực.</p>
         <div class="recent-jobs-list" id="recentJobsList"></div>
+    </section>
+
+    <section class="card" style="margin-top:14px; margin-bottom:4px;">
+        <h3 class="recent-jobs-title">Ứng viên đang chờ duyệt</h3>
+        <p class="recent-jobs-sub">Bấm Đồng ý để chốt ứng viên hoặc Bỏ qua để loại khỏi danh sách chờ.</p>
+        <div class="pending-apps-list" id="pendingAppsList"></div>
     </section>
 
     <section class="card analytics-wrap" id="analyticsSection">
         <div class="analytics-head">
             <div>
                 <h3 class="analytics-title">Thống kê tuyển dụng</h3>
-                <p class="analytics-sub">Dữ liệu giả để trình bày hiệu quả tuyển dụng, không kết nối hệ thống thật.</p>
+                <p class="analytics-sub">Theo dõi hiệu quả tuyển dụng theo từng giai đoạn để tối ưu chiến dịch đăng tin.</p>
             </div>
             <select id="analyticsPeriod" class="analytics-period">
                 <option value="7">7 ngày gần nhất</option>
@@ -1203,53 +1303,74 @@
         </div>
 
         <div class="plans-grid">
+            <!-- Gói Miễn Phí -->
             <article class="plan-card">
                 <div class="plan-top">
-                    <h4 class="plan-name">Cơ bản</h4>
-                    <span class="plan-badge">MIEN PHI</span>
+                    <h4 class="plan-name">Gói Miễn Phí – Tuyển Thường</h4>
+                    <span class="plan-badge">MIỄN PHÍ</span>
                 </div>
-                <div class="plan-price"><strong>0k</strong><span>/thang</span></div>
-                <p class="plan-note">Phu hop doanh nghiep moi bat dau dang tin.</p>
+                <div class="plan-price"><strong>0</strong><span>VNĐ</span></div>
+                <p class="plan-note">Dành cho doanh nghiệp không tuyển gấp.</p>
                 <ul class="plan-features">
-                    <li>Dang tin va quan ly ho so co ban</li>
-                    <li>Ho tro bo loc ung vien tieu chuan</li>
-                    <li>Xem thong ke tong quan</li>
+                    <li>Đăng ca ngắn hạn</li>
+                    <li>Ghép người tự động</li>
+                    <li>Không giữ tiền</li>
+                    <li>Không đảm bảo có người</li>
                 </ul>
-                <button class="plan-cta basic" data-plan="basic">Su dung goi Co ban</button>
+                <button class="plan-cta basic" data-plan="free">Dùng miễn phí</button>
             </article>
 
+            <!-- Gói Đăng Ca Nhanh -->
+            <article class="plan-card">
+                <div class="plan-top">
+                    <h4 class="plan-name">Gói Đăng Ca Nhanh</h4>
+                    <span class="plan-badge">PHỔ BIẾN</span>
+                </div>
+                <div class="plan-price"><strong>6%</strong><span>tiền lương</span></div>
+                <p class="plan-note">Dành cho doanh nghiệp nhỏ cần đăng ca sớm hoặc gấp.</p>
+                <ul class="plan-features">
+                    <li>Ưu tiên hiển thị hơn gói free</li>
+                    <li>Đăng ca sớm hoặc gấp</li>
+                    <li>Ghép người tự động nhanh hơn</li>
+                </ul>
+                <button class="plan-cta basic" data-plan="quick">Chọn gói này</button>
+            </article>
+
+            <!-- Gói Đảm Bảo Ca Làm -->
             <article class="plan-card featured">
                 <div class="plan-top">
-                    <h4 class="plan-name">Pro</h4>
-                    <span class="plan-badge">NOI BAT</span>
+                    <h4 class="plan-name">Gói Đảm Bảo Ca Làm</h4>
+                    <span class="plan-badge">NỔI BẬT</span>
                 </div>
-                <div class="plan-price"><strong>89k</strong><span>/thang</span></div>
-                <p class="plan-note">Duoc dung thu mien phi 7 ngay cho lan dau tien.</p>
+                <div class="plan-price"><strong>8–10%</strong><span>tổng lương ca</span></div>
+                <p class="plan-note">Dành cho doanh nghiệp cần chắc chắn có người.</p>
                 <ul class="plan-features">
-                    <li>Uu tien hien thi tin tuyen dung</li>
-                    <li>Xem va tim kiem ho so nang cao</li>
-                    <li>Thong bao ung vien moi theo thoi gian thuc</li>
+                    <li>Người dự phòng sẵn sàng</li>
+                    <li>Hoàn phí dịch vụ nếu không thay thế được</li>
+                    <li>Ưu tiên hiển thị cao</li>
                 </ul>
-                <button class="plan-cta pro" data-plan="pro" id="proPlanBtn">Bat dau 7 ngay mien phi</button>
+                <button class="plan-cta pro" data-plan="guarantee" id="proPlanBtn">Chọn gói này</button>
             </article>
 
+            <!-- Gói Premium -->
             <article class="plan-card">
                 <div class="plan-top">
-                    <h4 class="plan-name">Ultra Pro</h4>
-                    <span class="plan-badge">CAO CAP</span>
+                    <h4 class="plan-name">Gói Premium</h4>
+                    <span class="plan-badge">CAO CẤP</span>
                 </div>
-                <div class="plan-price"><strong>199k</strong><span>/thang</span></div>
-                <p class="plan-note">Danh cho doanh nghiep can toc do tuyen dung toi da.</p>
+                <div class="plan-price"><strong>500k</strong><span>VNĐ/tháng</span></div>
+                <p class="plan-note">Dành cho doanh nghiệp nhu cầu tuyển dụng theo ca cao.</p>
                 <ul class="plan-features">
-                    <li>Hien thi uu tien cao nhat</li>
-                    <li>Gan nhan doanh nghiep xac thuc nang cao</li>
-                    <li>Ho tro rieng va bao cao chuyen sau</li>
+                    <li>Đăng ca không giới hạn</li>
+                    <li>Luôn ưu tiên hiển thị</li>
+                    <li>Bảo hiểm cho mỗi ca</li>
+                    <li>Không tính thêm phần trăm khấu trừ</li>
                 </ul>
-                <button class="plan-cta ultra" data-plan="ultra">Nang cap Ultra Pro</button>
+                <button class="plan-cta ultra" data-plan="premium">Nâng cấp Premium</button>
             </article>
         </div>
 
-        <p class="plans-foot">Gia da bao gom uu dai hien tai. Co the thay doi theo chuong trinh tung thoi diem.</p>
+        <p class="plans-foot">Phí dịch vụ được tính trên từng ca làm việc. Gói Premium áp dụng mức cố định hàng tháng, không tính thêm phần trăm khấu trừ.</p>
     </div>
 </div>
 
@@ -1385,6 +1506,34 @@
 
     // ── Recruit jobs state ────────────────────────
     var JOBS_KEY = 'wf_jobs';
+    var PENDING_APPS_KEY = 'wf_pending_applications';
+    var MOCK_POSTED_JOBS_URL = '../data/mock-posted-jobs.json';
+    var MOCK_PENDING_APPS_URL = '../data/mock-pending-applications.json';
+
+    async function seedMockData() {
+        // Seed posted jobs once from JSON file
+        if (!readJobs().length) {
+            try {
+                var jobsRes = await fetch(MOCK_POSTED_JOBS_URL, { cache: 'no-store' });
+                if (jobsRes.ok) {
+                    var postedJobs = await jobsRes.json();
+                    if (Array.isArray(postedJobs) && postedJobs.length) writeJobs(postedJobs);
+                }
+            } catch (e) {}
+        }
+
+        // Seed pending applications once from JSON file
+        if (!readPendingApplications().length) {
+            try {
+                var appsRes = await fetch(MOCK_PENDING_APPS_URL, { cache: 'no-store' });
+                if (appsRes.ok) {
+                    var pendingApps = await appsRes.json();
+                    if (Array.isArray(pendingApps) && pendingApps.length) writePendingApplications(pendingApps);
+                }
+            } catch (e) {}
+        }
+    }
+
     function readJobs() {
         try {
             return JSON.parse(localStorage.getItem(JOBS_KEY) || '[]');
@@ -1394,6 +1543,16 @@
     }
     function writeJobs(jobs) {
         localStorage.setItem(JOBS_KEY, JSON.stringify(jobs));
+    }
+    function readPendingApplications() {
+        try {
+            return JSON.parse(localStorage.getItem(PENDING_APPS_KEY) || '[]');
+        } catch (e) {
+            return [];
+        }
+    }
+    function writePendingApplications(apps) {
+        localStorage.setItem(PENDING_APPS_KEY, JSON.stringify(apps));
     }
     function money(v) {
         return Number(v || 0).toLocaleString('vi-VN');
@@ -1425,6 +1584,51 @@
         }).join('');
 
         box.innerHTML = html;
+    }
+
+    function renderPendingApplications() {
+        var box = document.getElementById('pendingAppsList');
+        var apps = readPendingApplications().filter(function (a) { return a.status === 'pending'; });
+        if (!apps.length) {
+            box.innerHTML = '<div class="empty-jobs">Không còn ứng viên chờ duyệt.</div>';
+            return;
+        }
+
+        box.innerHTML = apps.map(function (app) {
+            var traits = Array.isArray(app.traits) ? app.traits : [];
+            return [
+                '<article class="pending-item">',
+                    '<div class="pending-main">',
+                        '<div class="pending-name">' + (app.workerName || 'Ứng viên') + '</div>',
+                        '<div class="pending-sub">',
+                            'Ứng tuyển: ' + (app.jobTitle || 'N/A') + '<br>',
+                            (app.workerPhone || 'Chưa có SĐT') + ' • ' + (app.workerDesc || 'Chưa có mô tả'),
+                        '</div>',
+                        '<div class="pending-meta">',
+                            '<span class="meta-pill jobs">Đã xong ' + (app.completedJobs || 0) + ' job</span>',
+                            '<span class="meta-pill star">★ ' + Number(app.stars || 0).toFixed(1) + '/5</span>',
+                        '</div>',
+                        '<div class="pending-traits">',
+                            traits.map(function (t) { return '<span class="trait-pill">' + t + '</span>'; }).join(''),
+                        '</div>',
+                    '</div>',
+                    '<div class="pending-actions">',
+                        '<button class="btn-approve" data-action="approve" data-id="' + app.id + '">Đồng ý</button>',
+                        '<button class="btn-reject" data-action="skip" data-id="' + app.id + '">Bỏ qua</button>',
+                    '</div>',
+                '</article>'
+            ].join('');
+        }).join('');
+    }
+
+    function updateApplicationStatus(appId, newStatus) {
+        var apps = readPendingApplications();
+        var idx = apps.findIndex(function (a) { return String(a.id) === String(appId); });
+        if (idx < 0) return null;
+        apps[idx].status = newStatus;
+        apps[idx].reviewedAt = new Date().toISOString();
+        writePendingApplications(apps);
+        return apps[idx];
     }
 
     // ── Analytics sample data ─────────────────────
@@ -1647,9 +1851,8 @@
     var PRO_TRIAL_KEY = 'wf_pro_trial_used';
 
     function syncProPlanButton() {
-        var used = localStorage.getItem(PRO_TRIAL_KEY) === '1';
         if (!proPlanBtn) return;
-        proPlanBtn.textContent = used ? 'Nang cap Pro - 89k/thang' : 'Bat dau 7 ngay mien phi';
+        proPlanBtn.textContent = 'Chọn gói này';
     }
 
     function openPlansModal() {
@@ -1678,27 +1881,23 @@
     document.querySelectorAll('.plan-cta').forEach(function (btn) {
         btn.addEventListener('click', function () {
             var plan = btn.dataset.plan;
-            if (plan === 'basic') {
-                alert('Ban dang o goi Co ban mien phi.');
+            if (plan === 'free') {
+                alert('Bạn đang sử dụng Gói Miễn Phí – Tuyển Thường.');
                 closePlansModal();
                 return;
             }
-
-            if (plan === 'pro') {
-                var used = localStorage.getItem(PRO_TRIAL_KEY) === '1';
-                if (!used) {
-                    localStorage.setItem(PRO_TRIAL_KEY, '1');
-                    syncProPlanButton();
-                    alert('Kich hoat dung thu Pro 7 ngay thanh cong! Sau thoi gian thu, phi Pro la 89k/thang.');
-                } else {
-                    alert('Ban da dung thu 7 ngay truoc do. Gia goi Pro hien tai la 89k/thang.');
-                }
+            if (plan === 'quick') {
+                alert('Bạn đã chọn Gói Đăng Ca Nhanh (6% tiền lương). Vui lòng liên hệ để kích hoạt.');
                 closePlansModal();
                 return;
             }
-
-            if (plan === 'ultra') {
-                alert('Ban da chon goi Ultra Pro voi muc phi 199k/thang.');
+            if (plan === 'guarantee') {
+                alert('Bạn đã chọn Gói Đảm Bảo Ca Làm (8–10% tổng lương ca). Vui lòng liên hệ để kích hoạt.');
+                closePlansModal();
+                return;
+            }
+            if (plan === 'premium') {
+                alert('Bạn đã chọn Gói Premium – 500.000 VNĐ/tháng. Vui lòng liên hệ để kích hoạt.');
                 closePlansModal();
             }
         });
@@ -1714,8 +1913,27 @@
         if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 
-    renderRecentJobs();
-    renderAnalytics('30');
+    document.getElementById('pendingAppsList').addEventListener('click', function (e) {
+        var btn = e.target.closest('button[data-action]');
+        if (!btn) return;
+        var appId = btn.getAttribute('data-id');
+        var action = btn.getAttribute('data-action');
+        var app = updateApplicationStatus(appId, action === 'approve' ? 'accepted' : 'skipped');
+        if (!app) return;
+
+        if (action === 'approve') {
+            alert('Đã chốt ứng viên ' + (app.workerName || '') + ' cho tin "' + (app.jobTitle || '') + '".');
+        } else {
+            alert('Đã bỏ qua ứng viên ' + (app.workerName || '') + '.');
+        }
+        renderPendingApplications();
+    });
+
+    seedMockData().finally(function () {
+        renderRecentJobs();
+        renderPendingApplications();
+        renderAnalytics('30');
+    });
 </script>
 </body>
 </html>

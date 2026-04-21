@@ -1,0 +1,53 @@
+[
+  {
+    "id": 1001,
+    "title": "Phục vụ quán cafe ca tối",
+    "category": "Phục vụ / F&B",
+    "shift": "Ca tối",
+    "city": "TP. HCM - Quận 1",
+    "quantity": 3,
+    "salaryFrom": 25000,
+    "salaryTo": 35000,
+    "startDate": "2026-04-23",
+    "contact": "0909 123 456",
+    "note": "Ưu tiên ứng viên đã từng làm quán cafe.",
+    "urgent": true,
+    "employerEmail": "biz-demo@workfast.vn",
+    "employerName": "Cafe Sunlight",
+    "createdAt": "2026-04-20T08:15:00.000Z"
+  },
+  {
+    "id": 1002,
+    "title": "Nhân viên đóng gói đơn hàng",
+    "category": "Kho / Giao nhận",
+    "shift": "Ca chiều",
+    "city": "TP. HCM - Thủ Đức",
+    "quantity": 5,
+    "salaryFrom": 28000,
+    "salaryTo": 38000,
+    "startDate": "2026-04-24",
+    "contact": "0909 123 456",
+    "note": "Ca 4 tiếng, có hướng dẫn trước khi làm.",
+    "urgent": false,
+    "employerEmail": "biz-demo@workfast.vn",
+    "employerName": "Kho Nhanh 247",
+    "createdAt": "2026-04-20T10:30:00.000Z"
+  },
+  {
+    "id": 1003,
+    "title": "Thu ngân cửa hàng tiện lợi",
+    "category": "Thu ngân",
+    "shift": "Ca sáng",
+    "city": "Đà Nẵng - Hải Châu",
+    "quantity": 2,
+    "salaryFrom": 24000,
+    "salaryTo": 32000,
+    "startDate": "2026-04-25",
+    "contact": "0909 123 456",
+    "note": "Yêu cầu đúng giờ, giao tiếp ổn.",
+    "urgent": false,
+    "employerEmail": "biz-demo@workfast.vn",
+    "employerName": "Mini24",
+    "createdAt": "2026-04-20T13:45:00.000Z"
+  }
+]

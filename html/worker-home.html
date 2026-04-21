@@ -255,6 +255,10 @@
         .detail-tag-type   { background: #f0f0f0; color: #555; }
         .detail-tag-salary { background: #e8f5e9; color: #2e7d32; }
         .detail-tag-deadline { background: #fff3e0; color: #e65100; }
+        .detail-tag-slot { background: #ffeaea; color: #c0392b; font-weight: 800; }
+        .detail-tag-countdown { background: #eaf4ff; color: #1565c0; font-weight: 700; }
+        .detail-tag-accepted { background: #fff8dc; color: #8a6b00; font-weight: 800; }
+        .detail-tag-completed { background: #e8f6ee; color: #207245; font-weight: 800; }
 
         .detail-address {
             display: flex;
@@ -314,6 +318,202 @@
             margin-top: 8px;
         }
         .btn-apply:hover { background: #f5d020; transform: translateY(-1px); }
+        .btn-complete {
+            display: inline-block;
+            background: #1f9d55;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 800;
+            padding: 13px 36px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background 0.2s, transform 0.15s;
+            margin-top: 8px;
+        }
+        .btn-complete:hover { background: #168048; transform: translateY(-1px); }
+
+        /* ── Slot badge on card ── */
+        .slot-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 20px;
+            background: #ffeaea;
+            color: #c0392b;
+        }
+
+        /* ── Apply-confirm modal (business view of applicant) ── */
+        .apply-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.52);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 950;
+            padding: 20px;
+        }
+        .apply-overlay.open { display: flex; }
+        .apply-modal {
+            width: min(96vw, 480px);
+            background: #fff;
+            border: 2px solid #f1c40f;
+            border-radius: 16px;
+            box-shadow: 0 24px 60px rgba(0,0,0,0.24);
+            padding: 24px 22px 20px;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .apply-modal-close {
+            position: absolute;
+            top: 10px; right: 10px;
+            width: 30px; height: 30px;
+            border: none; border-radius: 50%;
+            background: #111; color: #f1c40f;
+            font-size: 17px; cursor: pointer;
+        }
+        .apply-modal-eyebrow {
+            font-size: 11px;
+            font-weight: 800;
+            color: #b8860b;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            margin-bottom: 6px;
+        }
+        .apply-modal-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: #111;
+            margin-bottom: 14px;
+        }
+        .applicant-card {
+            background: #fafafa;
+            border: 1.5px solid #f0f0f0;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+        .applicant-top {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+        .applicant-avatar {
+            width: 56px; height: 56px;
+            border-radius: 50%;
+            border: 2px solid #f1c40f;
+            background: #111;
+            overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+            color: #f1c40f;
+            font-size: 22px;
+            font-weight: 900;
+        }
+        .applicant-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .applicant-info { flex: 1; min-width: 0; }
+        .applicant-name {
+            font-size: 16px;
+            font-weight: 800;
+            color: #111;
+            margin-bottom: 3px;
+        }
+        .applicant-desc {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.5;
+        }
+        .applicant-jobs-done {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #111;
+            border-radius: 10px;
+            padding: 10px 14px;
+            margin-bottom: 12px;
+        }
+        .applicant-jobs-done .jd-num {
+            font-size: 30px;
+            font-weight: 900;
+            color: #f1c40f;
+            line-height: 1;
+        }
+        .applicant-jobs-done .jd-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #ccc;
+            line-height: 1.4;
+        }
+        .applicant-stars-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .applicant-stars { font-size: 18px; letter-spacing: 1px; line-height: 1; }
+        .applicant-stars .s-on  { color: #f1c40f; }
+        .applicant-stars .s-off { color: #ddd; }
+        .applicant-stars-score { font-size: 13px; font-weight: 800; color: #111; }
+        .applicant-stars-count { font-size: 12px; color: #aaa; }
+        .applicant-attrs { display: flex; flex-wrap: wrap; gap: 6px; }
+        .attr-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: #fff8e1;
+            border: 1.5px solid #f1c40f;
+            border-radius: 20px;
+            padding: 4px 10px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #7d6000;
+        }
+        .attr-tag::before {
+            content: '✓';
+            width: 16px; height: 16px;
+            background: #f1c40f;
+            color: #111;
+            font-size: 10px;
+            font-weight: 900;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .apply-modal-actions { display: flex; gap: 10px; }
+        .btn-accept {
+            flex: 1;
+            background: #f1c40f;
+            border: none;
+            border-radius: 50px;
+            padding: 12px;
+            font-size: 14px;
+            font-weight: 800;
+            color: #111;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background 0.2s;
+        }
+        .btn-accept:hover { background: #f5d020; }
+        .btn-decline {
+            flex: 1;
+            background: #fff;
+            border: 1.5px solid #ddd;
+            border-radius: 50px;
+            padding: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #555;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .btn-decline:hover { border-color: #bbb; }
 
         /* ── Worker profile modal ── */
         .profile-overlay {
@@ -329,13 +529,15 @@
         .profile-overlay.open { display: flex; }
 
         .profile-modal {
-            width: min(94vw, 520px);
+            width: min(96vw, 700px);
             background: #fff;
             border: 2px solid #f1c40f;
             border-radius: 16px;
             box-shadow: 0 24px 60px rgba(0,0,0,0.24);
-            padding: 20px 18px 16px;
+            padding: 20px 22px 18px;
             position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
         }
         .profile-close {
             position: absolute;
@@ -359,18 +561,31 @@
         .profile-sub {
             font-size: 13px;
             color: #777;
-            margin-bottom: 14px;
+            margin-bottom: 16px;
         }
 
-        .profile-avatar-wrap {
+        /* Horizontal layout */
+        .profile-layout {
             display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 14px;
+            gap: 20px;
+            align-items: flex-start;
         }
+        .profile-left {
+            width: 150px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .profile-right {
+            flex: 1;
+            min-width: 0;
+        }
+
         .profile-avatar-btn {
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             border: 2px solid #f1c40f;
             background: #111;
@@ -391,9 +606,71 @@
             object-fit: cover;
         }
         .profile-avatar-hint {
-            font-size: 12px;
-            color: #777;
+            font-size: 11px;
+            color: #aaa;
             line-height: 1.4;
+            text-align: center;
+        }
+
+        /* Employer rating (read-only) */
+        .employer-rating-wrap {
+            width: 100%;
+            background: #fff8e1;
+            border: 1.5px solid #f1c40f;
+            border-radius: 10px;
+            padding: 10px 8px;
+            text-align: center;
+        }
+        .employer-rating-label {
+            font-size: 10px;
+            font-weight: 800;
+            color: #b8860b;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            margin-bottom: 6px;
+        }
+        .employer-stars {
+            font-size: 20px;
+            letter-spacing: 2px;
+            margin-bottom: 4px;
+            line-height: 1;
+        }
+        .employer-stars .es-filled { color: #f1c40f; }
+        .employer-stars .es-empty  { color: #ddd; }
+        .employer-rating-score {
+            font-size: 14px;
+            font-weight: 800;
+            color: #111;
+            line-height: 1.2;
+        }
+        .employer-rating-count {
+            font-size: 11px;
+            color: #888;
+            margin-top: 2px;
+        }
+        .employer-rating-note {
+            font-size: 10px;
+            color: #aaa;
+            margin-top: 6px;
+            line-height: 1.4;
+        }
+        .profile-rating-traits {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 8px;
+            justify-content: center;
+        }
+        .profile-trait-box {
+            font-size: 10px;
+            font-weight: 700;
+            color: #7d6000;
+            background: #fffdf2;
+            border: 1.5px solid #f1c40f;
+            border-radius: 999px;
+            padding: 4px 8px;
+            line-height: 1.2;
+            white-space: nowrap;
         }
 
         .profile-form .field {
@@ -417,7 +694,7 @@
             outline: none;
         }
         .profile-form textarea {
-            min-height: 70px;
+            min-height: 64px;
             resize: vertical;
         }
         .profile-form input:focus,
@@ -428,13 +705,13 @@
             display: flex;
             justify-content: flex-end;
             gap: 8px;
-            margin-top: 8px;
+            margin-top: 10px;
         }
         .profile-btn-cancel,
         .profile-btn-save {
             border: none;
             border-radius: 999px;
-            padding: 9px 14px;
+            padding: 9px 16px;
             font-size: 13px;
             font-weight: 700;
             cursor: pointer;
@@ -457,6 +734,9 @@
             .main-layout { flex-direction: column; height: auto; overflow: visible; }
             .job-list { width: 100%; height: 300px; border-right: none; border-bottom: 1px solid #e5e5e5; }
             .job-detail { padding: 20px 16px; }
+            .profile-layout { flex-direction: column; align-items: stretch; }
+            .profile-left { width: 100%; flex-direction: row; align-items: center; gap: 16px; }
+            .employer-rating-wrap { flex: 1; }
         }
     </style>
 </head>
@@ -477,42 +757,102 @@
 <div class="profile-overlay" id="workerProfileOverlay">
     <div class="profile-modal">
         <button class="profile-close" id="workerProfileClose" type="button">&times;</button>
-        <div class="profile-title">Thông tin cá nhân</div>
-        <div class="profile-sub">Chỉnh nhanh hồ sơ để nhà tuyển dụng dễ liên hệ hơn.</div>
+        <div class="profile-title">Hồ sơ cá nhân</div>
+        <div class="profile-sub">Chỉnh sửa thông tin để nhà tuyển dụng dễ liên hệ hơn.</div>
 
-        <div class="profile-avatar-wrap">
-            <button class="profile-avatar-btn" id="workerAvatarBtn" type="button">Đổi ảnh</button>
-            <div class="profile-avatar-hint">Nhấn vào avatar để thay đổi ảnh đại diện.<br>Chỉ dùng giao diện demo.</div>
+        <div class="profile-layout">
+            <!-- Left: avatar + employer rating -->
+            <div class="profile-left">
+                <button class="profile-avatar-btn" id="workerAvatarBtn" type="button">Đổi ảnh</button>
+                <div class="profile-avatar-hint">Nhấn để đổi ảnh đại diện</div>
+
+                <div class="employer-rating-wrap">
+                    <div class="employer-rating-label">Đánh giá từ NTD</div>
+                    <div class="employer-stars" id="employerStars"></div>
+                    <div class="employer-rating-score" id="employerScoreText">–</div>
+                    <div class="employer-rating-count" id="employerCountText"></div>
+                    <div class="employer-rating-note">Do nhà tuyển dụng đánh giá sau mỗi ca làm</div>
+                    <div class="profile-rating-traits">
+                        <span class="profile-trait-box">Nhanh nhẹn</span>
+                        <span class="profile-trait-box">Chăm chỉ</span>
+                        <span class="profile-trait-box">Đúng giờ</span>
+                        <span class="profile-trait-box">Thái độ tốt</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: form -->
+            <div class="profile-right">
+                <input type="file" id="workerAvatarInput" accept="image/*">
+
+                <form class="profile-form" id="workerProfileForm">
+                    <div class="field">
+                        <label for="workerFullName">Họ và tên</label>
+                        <input type="text" id="workerFullName" placeholder="Nguyễn Văn A">
+                    </div>
+                    <div class="field">
+                        <label for="workerEmail">Email</label>
+                        <input type="email" id="workerEmail" readonly>
+                    </div>
+                    <div class="field">
+                        <label for="workerPhone">Số điện thoại</label>
+                        <input type="tel" id="workerPhone" placeholder="0912 345 678">
+                    </div>
+                    <div class="field">
+                        <label for="workerCity">Khu vực mong muốn</label>
+                        <input type="text" id="workerCity" placeholder="Đà Nẵng">
+                    </div>
+                    <div class="field">
+                        <label for="workerSkills">Kỹ năng chính</label>
+                        <textarea id="workerSkills" placeholder="VD: phục vụ, bán hàng, giao tiếp khách hàng..."></textarea>
+                    </div>
+                    <div class="profile-actions">
+                        <button class="profile-btn-cancel" id="workerProfileCancel" type="button">Hủy</button>
+                        <button class="profile-btn-save" type="submit">Lưu thông tin</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Apply-confirm modal (simulates business side seeing applicant) -->
+<div class="apply-overlay" id="applyOverlay">
+    <div class="apply-modal">
+        <button class="apply-modal-close" id="applyModalClose">&times;</button>
+        <div class="apply-modal-eyebrow">Hồ sơ ứng tuyển</div>
+        <div class="apply-modal-title" id="applyModalTitle">Ứng tuyển: ...</div>
+
+        <div class="applicant-card">
+            <div class="applicant-top">
+                <div class="applicant-avatar" id="applyAvatar">?</div>
+                <div class="applicant-info">
+                    <div class="applicant-name" id="applyName">–</div>
+                    <div class="applicant-desc" id="applyDesc">–</div>
+                </div>
+            </div>
+
+            <!-- Jobs completed (prominent) -->
+            <div class="applicant-jobs-done">
+                <div class="jd-num" id="applyJobsDone">0</div>
+                <div class="jd-label">ca đã hoàn thành<br>trên WorkFast</div>
+            </div>
+
+            <!-- Stars -->
+            <div class="applicant-stars-row">
+                <div class="applicant-stars" id="applyStars"></div>
+                <div class="applicant-stars-score" id="applyScore">–</div>
+                <div class="applicant-stars-count" id="applyStarCount"></div>
+            </div>
+
+            <!-- Attribute tags -->
+            <div class="applicant-attrs" id="applyAttrs"></div>
         </div>
 
-        <input type="file" id="workerAvatarInput" accept="image/*">
-
-        <form class="profile-form" id="workerProfileForm">
-            <div class="field">
-                <label for="workerFullName">Họ và tên</label>
-                <input type="text" id="workerFullName" placeholder="Nguyễn Văn A">
-            </div>
-            <div class="field">
-                <label for="workerEmail">Email</label>
-                <input type="email" id="workerEmail" readonly>
-            </div>
-            <div class="field">
-                <label for="workerPhone">Số điện thoại</label>
-                <input type="tel" id="workerPhone" placeholder="0912 345 678">
-            </div>
-            <div class="field">
-                <label for="workerCity">Khu vực mong muốn</label>
-                <input type="text" id="workerCity" placeholder="Đà Nẵng">
-            </div>
-            <div class="field">
-                <label for="workerSkills">Kỹ năng chính</label>
-                <textarea id="workerSkills" placeholder="VD: phục vụ, bán hàng, giao tiếp khách hàng..."></textarea>
-            </div>
-            <div class="profile-actions">
-                <button class="profile-btn-cancel" id="workerProfileCancel" type="button">Hủy</button>
-                <button class="profile-btn-save" type="submit">Lưu thông tin</button>
-            </div>
-        </form>
+        <div class="apply-modal-actions">
+            <button class="btn-accept" id="btnAcceptJob">✓ Chốt việc ngay</button>
+            <button class="btn-decline" id="btnDeclineJob">Bỏ qua</button>
+        </div>
     </div>
 </div>
 
@@ -625,6 +965,8 @@
 
     var workerProfile = {};
     var workerAvatar = '';
+    // Employer rating shown from recruiter feedback after each shift
+    var EMPLOYER_RATING = { score: 4.2, count: 7 };
     try { workerProfile = JSON.parse(localStorage.getItem('wf_worker_profile') || '{}'); } catch (e) { workerProfile = {}; }
     workerAvatar = localStorage.getItem('wf_worker_avatar') || '';
 
@@ -655,6 +997,7 @@
         document.getElementById('workerCity').value = workerProfile.city || '';
         document.getElementById('workerSkills').value = workerProfile.skills || '';
         renderWorkerAvatar();
+        renderEmployerRating();
         document.getElementById('workerProfileOverlay').classList.add('open');
         document.body.style.overflow = 'hidden';
     }
@@ -670,6 +1013,19 @@
     document.getElementById('workerProfileOverlay').addEventListener('click', function (e) {
         if (e.target.id === 'workerProfileOverlay') closeWorkerProfileModal();
     });
+
+    // ── Employer rating (read-only) ─────────────────────
+    function renderEmployerRating() {
+        var r = EMPLOYER_RATING;
+        var filled = Math.round(r.score);
+        var stars = '';
+        for (var i = 1; i <= 5; i++) {
+            stars += '<span class="' + (i <= filled ? 'es-filled' : 'es-empty') + '">★</span>';
+        }
+        document.getElementById('employerStars').innerHTML = stars;
+        document.getElementById('employerScoreText').textContent = r.score.toFixed(1) + ' / 5';
+        document.getElementById('employerCountText').textContent = r.count + ' đánh giá';
+    }
 
     document.getElementById('workerAvatarBtn').addEventListener('click', function () {
         document.getElementById('workerAvatarInput').click();
@@ -718,6 +1074,8 @@
         {
             id: 1,
             title: 'Phục vụ quán cafe ca sáng',
+            startsIn: '6 giờ',
+            slots: { filled: 2, total: 3 },
             company: 'Yellow Cup Coffee',
             city: 'Đà Nẵng',
             salary: '24.000 - 30.000 đ/giờ',
@@ -731,6 +1089,8 @@
         {
             id: 2,
             title: 'Trực fanpage ca tối',
+            startsIn: '11 giờ',
+            slots: { filled: 1, total: 4 },
             company: 'VietArt Food',
             city: 'Đà Nẵng',
             salary: '25.000 - 35.000 đ/giờ',
@@ -744,6 +1104,8 @@
         {
             id: 3,
             title: 'Thu ngân cửa hàng tiện lợi',
+            startsIn: '8 giờ',
+            slots: { filled: 3, total: 5 },
             company: 'MiniMart 24h',
             city: 'Đà Nẵng',
             salary: '23.000 - 28.000 đ/giờ',
@@ -757,6 +1119,8 @@
         {
             id: 4,
             title: 'CSKH chat online',
+            startsIn: '23 giờ',
+            slots: { filled: 0, total: 2 },
             company: 'Gems Service',
             city: 'Đà Nẵng',
             salary: '26.000 - 32.000 đ/giờ',
@@ -770,6 +1134,8 @@
         {
             id: 5,
             title: 'Shipper giao đồ ăn giờ cao điểm',
+            startsIn: '4 giờ',
+            slots: { filled: 7, total: 10 },
             company: 'GoFood Partner',
             city: 'Đà Nẵng',
             salary: '30.000 - 45.000 đ/giờ',
@@ -783,6 +1149,8 @@
         {
             id: 6,
             title: 'Bán hàng thời trang ca tối',
+            startsIn: '14 giờ',
+            slots: { filled: 1, total: 2 },
             company: 'Urban Tee',
             city: 'Hồ Chí Minh',
             salary: '24.000 - 31.000 đ/giờ',
@@ -796,6 +1164,8 @@
         {
             id: 7,
             title: 'Trông xe ca đêm',
+            startsIn: '18 giờ',
+            slots: { filled: 0, total: 3 },
             company: 'Safe Parking',
             city: 'Hà Nội',
             salary: '27.000 - 33.000 đ/giờ',
@@ -809,6 +1179,8 @@
         {
             id: 8,
             title: 'Phụ bếp nhà hàng nhanh',
+            startsIn: '9 giờ',
+            slots: { filled: 2, total: 4 },
             company: 'Lotteria Express',
             city: 'Hồ Chí Minh',
             salary: '23.000 - 29.000 đ/giờ',
@@ -822,6 +1194,8 @@
         {
             id: 9,
             title: 'Gia sư tiếng Anh cuối tuần',
+            startsIn: '47 giờ',
+            slots: { filled: 0, total: 1 },
             company: 'Apollo Link',
             city: 'Hà Nội',
             salary: '150.000 - 220.000 đ/giờ',
@@ -835,6 +1209,8 @@
         {
             id: 10,
             title: 'Đóng gói đơn hàng ca 4 tiếng',
+            startsIn: '12 giờ',
+            slots: { filled: 4, total: 8 },
             company: 'Lazada Hub',
             city: 'Hồ Chí Minh',
             salary: '25.000 - 32.000 đ/giờ',
@@ -850,6 +1226,30 @@
     var allJobs = [];
     var filtered = [];
     var activeId = null;
+    var ACCEPTED_JOBS_KEY = 'wf_worker_accepted_jobs';
+    var COMPLETED_JOBS_KEY = 'wf_worker_completed_jobs';
+
+    function readIdList(key) {
+        try { return JSON.parse(localStorage.getItem(key) || '[]'); }
+        catch (e) { return []; }
+    }
+    function writeIdList(key, list) {
+        localStorage.setItem(key, JSON.stringify(list));
+    }
+    function hasId(key, id) {
+        return readIdList(key).includes(id);
+    }
+    function addId(key, id) {
+        var list = readIdList(key);
+        if (!list.includes(id)) {
+            list.push(id);
+            writeIdList(key, list);
+        }
+    }
+    function removeId(key, id) {
+        var list = readIdList(key).filter(function (x) { return x !== id; });
+        writeIdList(key, list);
+    }
 
     // ── Static jobs (no server) ───────────────────
     allJobs = STATIC_JOBS.slice();
@@ -891,6 +1291,7 @@
             return;
         }
         list.innerHTML = filtered.map(function (j) {
+            var s = j.slots || { filled: 0, total: 1 };
             return '<div class="job-card' + (j.id === activeId ? ' active' : '') + '" data-id="' + j.id + '">' +
                 '<div class="card-title">' + esc(j.title) + '</div>' +
                 '<div class="card-company">' + esc(j.company) + '</div>' +
@@ -898,6 +1299,7 @@
                     '<span class="tag tag-city">📍 ' + esc(j.city) + '</span>' +
                     '<span class="tag tag-type">' + esc(j.type) + '</span>' +
                     '<span class="tag tag-salary">' + esc(j.salary) + '</span>' +
+                    '<span class="slot-badge">🪑 ' + s.filled + '/' + s.total + ' slot</span>' +
                 '</div>' +
             '</div>';
         }).join('');
@@ -912,6 +1314,25 @@
     }
 
     function renderDetail(j) {
+        var s = j.slots || { filled: 0, total: 1 };
+        var slotLeft = s.total - s.filled;
+        var isAccepted = hasId(ACCEPTED_JOBS_KEY, j.id);
+        var isCompleted = hasId(COMPLETED_JOBS_KEY, j.id);
+        var statusTag = isCompleted
+            ? '<span class="detail-tag detail-tag-completed">✅ Đã hoàn thành</span>'
+            : (isAccepted ? '<span class="detail-tag detail-tag-accepted">📌 Đã được chốt</span>' : '');
+
+        var actionHtml = '';
+        if (isCompleted) {
+            actionHtml = '<button class="btn-apply" style="background:#95a5a6;cursor:not-allowed;" disabled>Công việc đã hoàn thành</button>';
+        } else if (isAccepted) {
+            actionHtml = '<button class="btn-complete" onclick="completeJob(' + j.id + ')">Hoàn thành công việc</button>';
+        } else {
+            actionHtml = (slotLeft > 0)
+                ? '<button class="btn-apply" onclick="applyJob(' + j.id + ')">Ứng tuyển ngay</button>'
+                : '<button class="btn-apply" style="background:#ccc;cursor:not-allowed;" disabled>Hết slot</button>';
+        }
+
         document.getElementById('jobDetail').innerHTML =
             '<div class="detail-header">' +
                 '<div class="detail-title">' + esc(j.title) + '</div>' +
@@ -921,6 +1342,9 @@
                     '<span class="detail-tag detail-tag-type">' + esc(j.type) + '</span>' +
                     '<span class="detail-tag detail-tag-salary">💰 ' + esc(j.salary) + '</span>' +
                     '<span class="detail-tag detail-tag-deadline">⏰ HN: ' + esc(j.deadline) + '</span>' +
+                    '<span class="detail-tag detail-tag-slot">🪑 Slot: ' + s.filled + '/' + s.total + (slotLeft === 0 ? ' – Hết chỗ' : '') + '</span>' +
+                    '<span class="detail-tag detail-tag-countdown">🕐 Bắt đầu sau: ' + esc(j.startsIn || '?') + '</span>' +
+                    statusTag +
                 '</div>' +
                 '<div class="detail-address">' +
                     '<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#888" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>' +
@@ -934,12 +1358,99 @@
             '<ul class="detail-list">' + j.requirements.map(function(r){ return '<li>' + esc(r) + '</li>'; }).join('') + '</ul>' +
             '<div class="detail-section-title">Quyền lợi</div>' +
             '<ul class="detail-list">' + j.benefits.map(function(b){ return '<li>' + esc(b) + '</li>'; }).join('') + '</ul>' +
-            '<button class="btn-apply" onclick="applyJob(' + j.id + ')">Ứng tuyển ngay</button>';
+            actionHtml;
     }
 
+    // ── Apply confirm modal ───────────────────────
+    var currentApplyJobId = null;
+
     function applyJob(id) {
+        currentApplyJobId = id;
         var job = allJobs.find(function(j){ return j.id === id; });
-        if (job) alert('Đã gửi hồ sơ ứng tuyển cho vị trí "' + job.title + '" tại ' + job.company + '!\nChúng tôi sẽ liên hệ với bạn sớm nhất.');
+        if (!job) return;
+
+        // Populate modal
+        document.getElementById('applyModalTitle').textContent = 'Ứng tuyển: ' + job.title;
+
+        // Avatar
+        var avatarEl = document.getElementById('applyAvatar');
+        if (workerAvatar) {
+            avatarEl.innerHTML = '<img src="' + workerAvatar + '" alt="avatar">';
+        } else {
+            var name = getWorkerDisplayName();
+            avatarEl.textContent = name.charAt(0).toUpperCase();
+        }
+
+        // Name & description
+        document.getElementById('applyName').textContent = getWorkerDisplayName();
+        document.getElementById('applyDesc').textContent = workerProfile.skills || 'Chưa cập nhật kỹ năng';
+
+        // Jobs done summary
+        document.getElementById('applyJobsDone').textContent = '12';
+
+        // Stars
+        var r = EMPLOYER_RATING;
+        var filled = Math.round(r.score);
+        var starsHtml = '';
+        for (var i = 1; i <= 5; i++) {
+            starsHtml += '<span class="' + (i <= filled ? 's-on' : 's-off') + '">★</span>';
+        }
+        document.getElementById('applyStars').innerHTML = starsHtml;
+        document.getElementById('applyScore').textContent = r.score.toFixed(1) + '/5';
+        document.getElementById('applyStarCount').textContent = '(' + r.count + ' đánh giá)';
+
+        // Attribute tags
+        var ATTRS = ['Thái độ tốt', 'Đúng giờ', 'Tác phong nhanh nhẹn', 'Giao tiếp tốt'];
+        document.getElementById('applyAttrs').innerHTML = ATTRS.map(function(a) {
+            return '<span class="attr-tag">' + a + '</span>';
+        }).join('');
+
+        document.getElementById('applyOverlay').classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    document.getElementById('applyModalClose').addEventListener('click', closeApplyModal);
+    document.getElementById('btnDeclineJob').addEventListener('click', closeApplyModal);
+    document.getElementById('applyOverlay').addEventListener('click', function(e) {
+        if (e.target.id === 'applyOverlay') closeApplyModal();
+    });
+
+    function closeApplyModal() {
+        document.getElementById('applyOverlay').classList.remove('open');
+        document.body.style.overflow = '';
+        currentApplyJobId = null;
+    }
+
+    document.getElementById('btnAcceptJob').addEventListener('click', function() {
+        var job = allJobs.find(function(j){ return j.id === currentApplyJobId; });
+        if (!job) return;
+        job.slots.filled = Math.min(job.slots.filled + 1, job.slots.total);
+        addId(ACCEPTED_JOBS_KEY, job.id);
+        closeApplyModal();
+        renderDetail(job);
+        renderList();
+        alert('🎉 Chúc mừng! Công việc "' + job.title + '" đã được chốt.\nBạn có thể nhấn "Hoàn thành công việc" sau khi kết thúc ca.');
+    });
+
+    function completeJob(id) {
+        var job = allJobs.find(function (j) { return j.id === id; });
+        if (!job) return;
+
+        addId(COMPLETED_JOBS_KEY, id);
+        removeId(ACCEPTED_JOBS_KEY, id);
+
+        var completedPayload = {
+            title: job.title,
+            company: job.company,
+            city: job.city,
+            salary: job.salary,
+            completedAt: new Date().toISOString(),
+            workerName: getWorkerDisplayName(),
+            rating: EMPLOYER_RATING.score
+        };
+        localStorage.setItem('wf_last_completed_job', JSON.stringify(completedPayload));
+
+        window.location.href = './job-completed.html';
     }
 
     function esc(s) {

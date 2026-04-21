@@ -1,0 +1,41 @@
+[
+  {
+    "id": "app-9001",
+    "jobId": 1001,
+    "jobTitle": "Phục vụ quán cafe ca tối",
+    "workerName": "Nguyễn Minh Anh",
+    "workerPhone": "0912 888 111",
+    "workerDesc": "Đã làm phục vụ 8 tháng, giao tiếp tốt với khách.",
+    "stars": 4.8,
+    "completedJobs": 29,
+    "traits": ["Nhanh nhẹn", "Chăm chỉ", "Đúng giờ", "Thái độ tốt"],
+    "status": "pending",
+    "appliedAt": "2026-04-21T01:30:00.000Z"
+  },
+  {
+    "id": "app-9002",
+    "jobId": 1002,
+    "jobTitle": "Nhân viên đóng gói đơn hàng",
+    "workerName": "Trần Quang Huy",
+    "workerPhone": "0903 777 220",
+    "workerDesc": "Từng làm kho online, thao tác nhanh và cẩn thận.",
+    "stars": 4.5,
+    "completedJobs": 17,
+    "traits": ["Tác phong nhanh nhẹn", "Đúng giờ", "Hợp tác tốt"],
+    "status": "pending",
+    "appliedAt": "2026-04-21T02:10:00.000Z"
+  },
+  {
+    "id": "app-9003",
+    "jobId": 1003,
+    "jobTitle": "Thu ngân cửa hàng tiện lợi",
+    "workerName": "Lê Thu Trang",
+    "workerPhone": "0938 112 334",
+    "workerDesc": "Có kinh nghiệm thu ngân 1 năm, thân thiện với khách hàng.",
+    "stars": 4.9,
+    "completedJobs": 34,
+    "traits": ["Thái độ tốt", "Đúng giờ", "Chăm chỉ"],
+    "status": "pending",
+    "appliedAt": "2026-04-21T03:20:00.000Z"
+  }
+]
